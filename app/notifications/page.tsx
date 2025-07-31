@@ -1268,16 +1268,6 @@ export default function NotificationsPage() {
               </div>
             </CardHeader>
             <CardFooter className="pt-0 pb-4 relative z-10">
-              <MiniChart
-                data={stat.trend}
-                colorClassName={
-                  stat.color === "emerald"
-                    ? "bg-gradient-to-t from-emerald-500 to-emerald-400"
-                    : stat.color === "blue"
-                      ? "bg-gradient-to-t from-blue-500 to-blue-400"
-                      : "bg-gradient-to-t from-purple-500 to-purple-400"
-                }
-              />
             </CardFooter>
           </Card>
         ))}
