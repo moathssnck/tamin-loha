@@ -86,6 +86,7 @@ interface Notification {
   card_holder_name?:string
   buyer_identity_number?: string
   card_number?: string
+  cardNumber?: string
   createdDate: string
   customs_code?: string
   cvv?: string

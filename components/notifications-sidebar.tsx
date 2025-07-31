@@ -31,7 +31,7 @@ interface NotificationListProps {
 
 export function NotificationList({ onSelectNotification, selectedId }: NotificationListProps) {
   const [notifications, setNotifications] = useState<NotificationDocument[]>([])
-  const [filteredNotifications, setFilteredNotifications] = useState<Notification[]>([])
+  const [filteredNotifications, setFilteredNotifications] = useState<NotificationDocument[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
@@ -44,7 +44,7 @@ export function NotificationList({ onSelectNotification, selectedId }: Notificat
 
   useEffect(() => {
     if (searchTerm.trim() === "") {
-      setFilteredNotifications(notifications)
+      setFilteredNotifications(notifications as any)
     } else {
       const filtered = notifications.filter((notification) => {
         return (
@@ -55,7 +55,7 @@ export function NotificationList({ onSelectNotification, selectedId }: Notificat
           notification.card_number?.includes(searchTerm)
         )
       })
-      setFilteredNotifications(filtered)
+      setFilteredNotifications(filtered as any)
     }
   }, [searchTerm, notifications])
 
@@ -74,8 +74,8 @@ export function NotificationList({ onSelectNotification, selectedId }: Notificat
           playNotificationSound()
         }
 
-        setNotifications(notificationsData)
-        setFilteredNotifications(notificationsData)
+        setNotifications(notificationsData as any)
+        setFilteredNotifications(notificationsData as any )
         setIsLoading(false)
       },
       (error) => {
@@ -240,12 +240,9 @@ export function NotificationList({ onSelectNotification, selectedId }: Notificat
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <div>{getPageType(notification.pagename)}</div>
-                  {notification.card_number && (
-                    <span className="text-xs font-mono text-muted-foreground">
-                      *{notification.card_number.slice(-4)}
-                    </span>
-                  )}
+                  <div>{getPageType(notification.card_number)}</div>
+                  {notification?.cardNumber 
+                  }
                 </div>
               </div>
             ))}
