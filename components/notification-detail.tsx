@@ -25,7 +25,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { NotificationDocument, db } from "@/lib/firestore";
+import { NotificationDocument, db ,auth} from "@/lib/firestore";
 import { doc, updateDoc } from "firebase/firestore";
 
 interface NotificationDetailProps {
