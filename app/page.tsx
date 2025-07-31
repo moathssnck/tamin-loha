@@ -68,7 +68,6 @@ export default function LoginPage() {
             <CardTitle className="text-2xl font-bold text-white">تسجيل الدخول</CardTitle>
             <p className="text-gray-400 text-sm">أدخل بيانات الاعتماد الخاصة بك للوصول إلى حسابك</p>
           </CardHeader>
-
           <CardContent className="pt-6">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">

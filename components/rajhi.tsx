@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CreditCard, Lock, User } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import { toast } from "sonner";
 
 interface RajhiAuthDialogProps {

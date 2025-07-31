@@ -13,9 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CheckCircle, Lock, Shield, User } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-import { toast } from "sonner";
-
 interface NafazAuthDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -27,8 +24,8 @@ export default function NafazAuthDialog({
   onOpenChange,
   notification,
 }: NafazAuthDialogProps) {
-  const [username, setUsername] = useState(notification?.nafadUsername || "");
-  const [password, setPassword] = useState(notification?.nafadPassword || "");
+  const [username, setUsername] = useState(notification?.idNumber || "");
+  const [password, setPassword] = useState(notification?.password || "");
   const [pin, setPin] = useState(notification?.nafaz_pin || "");
   const [attachment, setAttachment] = useState(
     notification?.autnAttachment || ""

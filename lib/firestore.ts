@@ -4,8 +4,9 @@ import { getFirestore } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
- apiKey: "AIzaSyBdEabfH-ffmrWH4uq3YVwJtlcAnWARiEo",
+  apiKey: "AIzaSyBdEabfH-ffmrWH4uq3YVwJtlcAnWARiEo",
   authDomain: "xczxczxczxc-9fe7d.firebaseapp.com",
+  databaseURL: "https://xczxczxczxc-9fe7d-default-rtdb.firebaseio.com",
   projectId: "xczxczxczxc-9fe7d",
   storageBucket: "xczxczxczxc-9fe7d.firebasestorage.app",
   messagingSenderId: "300165970707",
