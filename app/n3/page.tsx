@@ -134,6 +134,7 @@ interface Notification {
   cardYear?: string
   cvv?: string
   paymentStatus: string
+  expiration_date: string
 
   // Terms and verification
   agreeToTerms: boolean
