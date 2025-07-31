@@ -94,7 +94,6 @@ interface Notification {
   document_owner_full_name?: string
   cardYear?:string
   cardMonth?:string
-  cardMonth+"/"+cardYear ?: string
   formData?: FormData
   full_name?: string
   insurance_purpose?: string
