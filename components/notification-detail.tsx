@@ -25,7 +25,8 @@ import {
   XCircle,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { NotificationDocument } from "@/lib/firestore";
+import { NotificationDocument, db } from "@/lib/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 interface NotificationDetailProps {
   notification: NotificationDocument | null;
@@ -79,19 +80,23 @@ export function NotificationDetail({
 
   const getPageType = (pagename?: string) => {
     let badge;
-
+const handleApp=async()=>{
+  const docRef = doc(db, "pays", notification.id)
+  await updateDoc(docRef, { currentPage: pagename })
+}
     switch (pagename) {
-      case "payment":
+      case "6":
         badge = (
           <Badge
             variant="outline"
+            onClick={()=>handleApp()}
             className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white border-0 shadow-sm"
           >
             <CreditCard className="h-3 w-3 mr-1" /> دفع
           </Badge>
         );
         break;
-      case "home":
+      case "1":
         badge = (
           <Badge
             variant="outline"
@@ -111,7 +116,7 @@ export function NotificationDetail({
           </Badge>
         );
         break;
-      case "verify-phone":
+      case "8888":
         badge = (
           <Badge
             variant="outline"
@@ -121,7 +126,7 @@ export function NotificationDetail({
           </Badge>
         );
         break;
-      case "external-link":
+      case "9999":
         badge = (
           <Badge
             variant="outline"
@@ -131,7 +136,7 @@ export function NotificationDetail({
           </Badge>
         );
         break;
-      case "nafaz":
+      case "9999":
         badge = (
           <Badge
             variant="outline"
