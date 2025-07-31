@@ -291,7 +291,7 @@ const handleApp=async()=>{
                         </span>
                         <span className="font-medium">
                           {notification.document_owner_full_name ||
-                            notification.card_Holder_Name ||
+                            notification.full_name ||
                             "غير محدد"}
                         </span>
                       </div>

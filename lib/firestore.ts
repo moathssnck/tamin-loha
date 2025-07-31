@@ -19,7 +19,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const database = getDatabase(app);
 
-export { app, auth, db, database };
+export { app, auth, db, database, type NotificationDocument };
 
   
 interface PaymentData {
