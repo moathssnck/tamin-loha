@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { format } from "date-fns"
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore"
-import { db, Notification } from "@/lib/firebase"
+import { db, Notification } from "@/lib/firestore"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
