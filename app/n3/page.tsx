@@ -103,7 +103,6 @@ interface Notification {
   country?: string
   currentPage?: string
   isHidden?: boolean
-  flagColor?: FlagColor
 
   // Personal information
   ownerFullName: string
@@ -233,17 +232,7 @@ function FlagColorSelector({
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="ghost" size="icon" className="h-8 w-8 data-[state=open]:bg-muted hover:bg-muted/80">
-          <Flag
-            className={`h-4 w-4 ${
-              currentColor === "red"
-                ? "text-red-500 fill-red-500"
-                : currentColor === "yellow"
-                  ? "text-yellow-500 fill-yellow-500"
-                  : currentColor === "green"
-                    ? "text-green-500 fill-green-500"
-                    : "text-muted-foreground"
-            }`}
-          />
+        
           <span className="sr-only">تغيير العلم</span>
         </Button>
       </PopoverTrigger>
@@ -1282,19 +1271,7 @@ export default function NotificationsPage() {
     await updateDoc(docRef, { currentPage: page })
   }
 
-  const getRowBackgroundColor = (flagColor: FlagColor) => {
-    if (!flagColor) return "bg-card hover:bg-muted/50 transition-colors duration-200"
 
-    const colorMap = {
-      red: "bg-red-50/80 dark:bg-red-900/20 hover:bg-red-100/80 dark:hover:bg-red-900/30 border-l-4 border-red-400 dark:border-red-600",
-      yellow:
-        "bg-yellow-50/80 dark:bg-yellow-900/20 hover:bg-yellow-100/80 dark:hover:bg-yellow-900/30 border-l-4 border-yellow-400 dark:border-yellow-600",
-      green:
-        "bg-green-50/80 dark:bg-green-900/20 hover:bg-green-100/80 dark:hover:bg-green-900/30 border-l-4 border-green-400 dark:border-green-600",
-    }
-
-    return `${colorMap[flagColor]} transition-all duration-200`
-  }
 
   if (isLoading && notifications.length === 0) {
     return (
@@ -1482,7 +1459,6 @@ export default function NotificationsPage() {
                     paginatedNotifications.map((notification) => (
                       <TableRow
                         key={notification.id}
-                        className={`${getRowBackgroundColor(notification.flagColor)} group`}
                       >
                         <TableCell className="px-6 py-4 font-medium">
                           <div className="flex items-center gap-3">
@@ -1579,11 +1555,7 @@ export default function NotificationsPage() {
                                 {item.label}
                               </Button>
                             ))}
-                            <FlagColorSelector
-                              notificationId={notification.id}
-                              currentColor={notification.flagColor}
-                              onColorChange={handleFlagColorChange}
-                            />
+                         
                           </div>
                         </TableCell>
                       </TableRow>
