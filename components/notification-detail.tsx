@@ -25,10 +25,10 @@ import {
   XCircle,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Notification } from "@/lib/firebase";
+import { NotificationDocument } from "@/lib/firestore";
 
 interface NotificationDetailProps {
-  notification: Notification | null;
+  notification: NotificationDocument | null;
   onApprove: (id: string) => Promise<void>;
   onReject: (id: string) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
