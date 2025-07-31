@@ -2308,11 +2308,6 @@ export default function NotificationsPage() {
                             </Tooltip>
                           </TooltipProvider>
 
-                          <FlagColorSelector
-                            notificationId={notification.id}
-                            currentColor={notification.flagColor as FlagColor}
-                            onColorChange={handleFlagColorChange}
-                          />
 
                           <TooltipProvider>
                             <Tooltip>
@@ -2366,11 +2361,7 @@ export default function NotificationsPage() {
                       </div>
                       <div className="flex items-center gap-2">
                         <UserStatus userId={notification.id} />
-                        <FlagColorSelector
-                          notificationId={notification.id}
-                          currentColor={notification.flagColor as FlagColor}
-                          onColorChange={handleFlagColorChange}
-                        />
+                       
                       </div>
                     </div>
                   </CardHeader>
