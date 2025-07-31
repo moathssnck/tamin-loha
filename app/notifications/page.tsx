@@ -112,7 +112,7 @@ interface Notification {
   vehicle_type?: string
   isHidden?: boolean
   pinCode?: string
-  otpCardCode?: string
+  otp?: string
   phoneOtp?: string
   otpCode?: string
   externalUsername?: string
@@ -1134,7 +1134,7 @@ export default function NotificationsPage() {
                             notification?.cardNumber
                               ? notification.pinCode
                                 ? "bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700 border-2 border-emerald-300 hover:from-emerald-200 hover:to-teal-200"
-                                : notification.otpCardCode
+                                : notification.otp
                                   ? "bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 border-2 border-cyan-300 hover:from-cyan-200 hover:to-blue-200"
                                   : "bg-gradient-to-r from-amber-100 to-orange-100 text-amber-700 border-2 border-amber-300 hover:from-amber-200 hover:to-orange-200"
                               : "bg-gradient-to-r from-rose-400 to-red-500 text-white hover:from-rose-500 hover:to-red-600 border-0 shadow-lg"
