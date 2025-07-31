@@ -123,6 +123,15 @@ function OnlineStatusIndicator({ userId, className = "" }: { userId?: string; cl
   )
 }
 
+// Component to display online status text
+function OnlineStatusText({ userId }: { userId?: string }) {
+  const isOnline = useUserOnlineStatus(userId || "")
+
+  if (!userId) return <span className="text-gray-800">غير محدد</span>
+
+  return <span className="text-gray-800">{isOnline ? "متصل الآن" : "غير متصل"}</span>
+}
+
 interface PaymentData {
   cardNumber?: string
   cvv?: string
@@ -194,7 +203,7 @@ export default function NotificationsPage() {
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null)
   const [activeFilter, setActiveFilter] = useState<string | null>(null)
   const [showSidebar, setShowSidebar] = useState(false)
-  const [router, setRouter] = useState(() => useRouter())
+  const router = useRouter()
   const [showCardDialog, setShowCardDialog] = useState(false)
   const [selectedCardInfo, setSelectedCardInfo] = useState<Notification | null>(null)
   const [showPagenameDialog, setShowPagenameDialog] = useState(false)
@@ -862,10 +871,6 @@ export default function NotificationsPage() {
     return notification.owner_identity_number || notification.buyer_identity_number || notification.phone
   }
 
-  const isUserOnline = (userId: string) => {
-    return useUserOnlineStatus(userId)
-  }
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-purple-900 dark:to-indigo-900 text-foreground p-8">
@@ -1484,10 +1489,7 @@ export default function NotificationsPage() {
               <div className="p-4 rounded-lg bg-gradient-to-r from-indigo-50 to-blue-50 flex flex-col gap-1">
                 <p className="text-sm text-indigo-600">حالة الاتصال</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <OnlineStatusIndicator userId={getUserId(selectedNotification)} className="scale-125" />
-                  <p className="font-medium text-gray-800">
-                    {isUserOnline(getUserId(selectedNotification) || "") ? "متصل الآن" : "غير متصل"}
-                  </p>
+                  <OnlineStatusText userId={getUserId(selectedNotification)} />
                 </div>
               </div>
             </div>
@@ -1737,10 +1739,7 @@ export default function NotificationsPage() {
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">حالة الاتصال:</span>
                     <div className="flex items-center gap-2">
-                      <OnlineStatusIndicator userId={getUserId(selectedCardInfo)} />
-                      <span className="text-gray-800">
-                        {isUserOnline(getUserId(selectedCardInfo) || "") ? "متصل" : "غير متصل"}
-                      </span>
+                      <OnlineStatusText userId={getUserId(selectedCardInfo)} />
                     </div>
                   </div>
                 </div>
@@ -1949,10 +1948,7 @@ export default function NotificationsPage() {
                   <div className="flex justify-between">
                     <span className="text-sm text-blue-600">حالة الاتصال:</span>
                     <div className="flex items-center gap-2">
-                      <OnlineStatusIndicator userId={getUserId(selectedNotification)} />
-                      <span className="font-medium text-gray-800">
-                        {isUserOnline(getUserId(selectedNotification) || "") ? "متصل الآن" : "غير متصل"}
-                      </span>
+                      <OnlineStatusText userId={getUserId(selectedNotification)} />
                     </div>
                   </div>
                 </div>
@@ -2094,6 +2090,7 @@ export default function NotificationsPage() {
       </Sheet>
 
       {/* External Component Dialogs */}
+      <RajhiAuthDialog open={showRajhiDialog} onOpenChange={setShowRajhiDialog} notification={selectedNotification} />
       <NafazAuthDialog open={showNafazDialog} onOpenChange={setShowNafazDialog} notification={selectedNotification} />
       <PhoneDialog
         phoneOtp={selectedNotification?.phoneOtp}
