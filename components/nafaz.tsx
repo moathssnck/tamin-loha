@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CheckCircle, Lock, Shield, User } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/lib/firestore";
+import { toast } from "sonner";
 interface NafazAuthDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
