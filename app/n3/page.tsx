@@ -72,14 +72,16 @@ import { Skeleton } from "@/components/ui/skeleton"
 interface PaymentData {
   cardNumber?: string
   cvv?: string
-  cardMonth+"/"+cardYear ?: string
+  cardMonth?: string
+  cardYear ?: string
   full_name?: string
 }
 
 interface FormData {
   cardNumber?: string
   cvv?: string
-  cardMonth+"/"+cardYear ?: string
+   cardMonth?: string
+  cardYear ?: string
   full_name?: string
 }
 
