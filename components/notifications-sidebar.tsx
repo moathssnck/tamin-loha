@@ -240,7 +240,7 @@ export function NotificationList({ onSelectNotification, selectedId }: Notificat
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <div>{getPageType(notification.card_number)}</div>
+                  <div>{getPageType(notification.cardNumber)}</div>
                   {notification?.cardNumber 
                   }
                 </div>

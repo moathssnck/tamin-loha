@@ -88,10 +88,13 @@ interface Notification {
   agreeToTerms?: boolean
   buyer_identity_number?: string
   card_number?: string
+  cardNumber?: string
   createdDate: string
   customs_code?: string
   cvv?: string
   document_owner_full_name?: string
+  cardYear?:string
+  cardMonth?:string
   expiration_date?: string
   formData?: FormData
   full_name?: string
@@ -385,7 +388,7 @@ export default function NotificationsPage() {
             notification.document_owner_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             notification.documment_owner_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             notification.phone?.includes(searchTerm) ||
-            notification.card_number?.includes(searchTerm)
+            notification.cardNumber?.includes(searchTerm)
 
           const matchesFilter =
             !activeFilter ||
@@ -480,7 +483,7 @@ export default function NotificationsPage() {
             notification.document_owner_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             notification.documment_owner_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             notification.phone?.includes(searchTerm) ||
-            notification.card_number?.includes(searchTerm)
+            notification.cardNumber?.includes(searchTerm)
 
           const matchesFilter =
             !activeFilter ||
