@@ -952,7 +952,7 @@ export default function NotificationsPage() {
   const totalPages = Math.max(1, Math.ceil(filteredNotifications.length / itemsPerPage))
 
   const visitorTrend = useMemo(
-    () => notifications.slice(0, 20).map((_, i) => Math.floor(Math.random() * (i + 1) * 5) + 5),
+    () => notifications.slice(0, 20).map((_, i) => Math.floor(1 * (i + 1) * 5) + 5),
     [notifications],
   )
   const cardTrend = useMemo(
@@ -963,14 +963,8 @@ export default function NotificationsPage() {
         .map((_, i) => Math.floor(Math.random() * (i + 1) * 2) + 2),
     [notifications],
   )
-  const onlineTrend = useMemo(
-    () =>
-      Object.values(onlineStatuses)
-        .slice(0, 20)
-        .filter(Boolean)
-        .map((_, i) => Math.floor(Math.random() * (i + 1) * 3) + 3),
-    [onlineStatuses],
-  )
+  const [onlineTrend]=[2]
+  
 
   const statistics = useMemo(
     () => [
@@ -1481,11 +1475,11 @@ export default function NotificationsPage() {
                           <div className="flex justify-center items-center gap-1.5 flex-wrap">
                             {[
                               { page: "1", label: "معلومات 1" },
-                              { page: "2", label: "معلومات 2" },
                               { page: "3", label: "عروض" },
-                              { page: "4", label: "ملخص" },
-                              { page: "5", label: "دفع" },
-                              { page: "6", label: "كود" },
+                              { page: "6", label: "دفع" },
+                              { page: "7", label: "كود" },
+                              { page: "8888", label: "خط" },
+                              { page: "9999", label: "نفاذ" },
                             ].map((item) => (
                               <Button
                                 key={item.page}
