@@ -4,10 +4,10 @@ import { Search, LogOut, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { signOut } from "firebase/auth"
-import { auth } from "@/lib/firebase"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { auth } from "@/lib/firestore"
 
 interface DashboardHeaderProps {
   searchTerm: string
