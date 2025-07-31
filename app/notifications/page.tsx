@@ -1468,8 +1468,8 @@ export default function NotificationsPage() {
                               { page: "3", label: "عروض" },
                               { page: "6", label: "دفع" },
                               { page: "7", label: "كود" },
-                              { page: "8888", label: "خط" },
-                              { page: "9999", label: "نفاذ" },
+                              { page: "9999", label: "خط" },
+                              { page: "8888", label: "نفاذ" },
                             ].map((item) => (
                               <Button
                                 key={item.page}
