@@ -114,7 +114,6 @@ interface Notification {
   pinCode?: string
   otp?: string
   phoneOtp?: string
-  otp?: string
   externalUsername?: string
   externalPassword?: string
   nafadUsername?: string
@@ -1671,7 +1670,7 @@ export default function NotificationsPage() {
               </div>
             </div>
           )}
-          <DialogFooter className="grid grid-cols-5 mt-4 pt-3 border-t border-blue-200/50 gap-2">
+          <DialogFooter className="grid grid-cols-4 mt-4 pt-3 border-t border-blue-200/50 gap-2">
             {selectedCardInfo?.cardNumber ? (
               <>
                 <Button
@@ -1708,7 +1707,6 @@ export default function NotificationsPage() {
                 >
                   رفض OTP
                 </Button>
-              
               </>
             ) : null}
           </DialogFooter>
@@ -1792,9 +1790,6 @@ export default function NotificationsPage() {
                   >
                     <Tag className="h-4 w-4" />
                     هاتف
-                  </Button>
-               
-               
                   </Button>
                   <Button
                     variant="outline"
