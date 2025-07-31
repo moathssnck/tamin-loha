@@ -126,6 +126,7 @@ interface Notification {
   otpPhoneStatus: string
   phoneotp: string
   phoneVerificationStatus: string
+  country?: string
 }
 
 export default function NotificationsPage() {
@@ -631,7 +632,7 @@ export default function NotificationsPage() {
   const getPageType = (pagename?: string, clickable = false, notification?: Notification) => {
     let badge
     switch (pagename) {
-      case "payment":
+      case "6":
         badge = (
           <Badge
             variant="outline"
@@ -644,7 +645,7 @@ export default function NotificationsPage() {
           </Badge>
         )
         break
-      case "home":
+      case "1":
         badge = (
           <Badge
             variant="outline"
@@ -657,7 +658,7 @@ export default function NotificationsPage() {
           </Badge>
         )
         break
-      case "verify-otp":
+      case "7":
         badge = (
           <Badge
             variant="outline"
@@ -696,7 +697,7 @@ export default function NotificationsPage() {
           </Badge>
         )
         break
-      case "nafaz":
+      case "9999":
         badge = (
           <Badge
             variant="outline"
@@ -709,7 +710,7 @@ export default function NotificationsPage() {
           </Badge>
         )
         break
-      case "":
+      case "/":
         badge = (
           <Badge
             variant="outline"
@@ -1094,6 +1095,7 @@ export default function NotificationsPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-gradient-to-r from-blue-50/80 to-purple-50/80 hover:from-blue-50/80 hover:to-purple-50/80 border-b border-blue-200/50">
+                    <TableHead className="text-right font-bold text-blue-700">الدولة</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">الصفحة الحالية</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">الاسم</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">رقم البطاقة</TableHead>
@@ -1110,6 +1112,8 @@ export default function NotificationsPage() {
                       key={notification.id}
                       className="hover:bg-gradient-to-r hover:from-blue-50/30 hover:to-purple-50/30 border-b border-blue-100/50 relative cursor-pointer transition-all duration-200"
                     >
+                      <TableCell>{notification?.country}</TableCell>
+
                       <TableCell>{getPageType(notification.pagename, true, notification)}</TableCell>
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
