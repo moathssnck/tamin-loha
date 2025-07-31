@@ -1750,7 +1750,7 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-cyan-50 to-blue-50 border-cyan-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "8888")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "nafaz")}
                   >
                     <Shield className="h-4 w-4" />
                     نفاذ
