@@ -25,12 +25,12 @@ import { cn } from "@/lib/utils"
 import { playNotificationSound } from "@/lib/actions"
 
 interface NotificationListProps {
-  onSelectNotification: (notification: Notification) => void
+  onSelectNotification: (notification: NotificationDocument) => void
   selectedId?: string
 }
 
 export function NotificationList({ onSelectNotification, selectedId }: NotificationListProps) {
-  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [notifications, setNotifications] = useState<NotificationDocument[]>([])
   const [filteredNotifications, setFilteredNotifications] = useState<Notification[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
