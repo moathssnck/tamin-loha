@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { CreditCard, Lock, User } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "sonner";
+import { db } from "@/lib/firestore";
 
 interface RajhiAuthDialogProps {
   open: boolean;
