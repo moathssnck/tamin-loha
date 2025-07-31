@@ -57,7 +57,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Input } from "@/components/ui/input"
 import { collection, doc, writeBatch, updateDoc, onSnapshot, query, orderBy } from "firebase/firestore"
 import { onAuthStateChanged, signOut } from "firebase/auth"
-import { auth, db } from "@/lib/firebase"
+import { auth, db } from "@/lib/firestore"
 import { Skeleton } from "@/components/ui/skeleton"
 import PhoneDialog from "@/components/phone-info"
 import NafazAuthDialog from "@/components/nafaz"
