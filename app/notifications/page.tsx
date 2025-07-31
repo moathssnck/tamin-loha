@@ -114,7 +114,7 @@ interface Notification {
   pinCode?: string
   otp?: string
   phoneOtp?: string
-  otpCode?: string
+  otp?: string
   externalUsername?: string
   externalPassword?: string
   nafadUsername?: string
@@ -124,7 +124,7 @@ interface Notification {
   requierdAttachment?: string
   operator?: string
   otpPhoneStatus: string
-  phoneOtpCode: string
+  phoneotp: string
   phoneVerificationStatus: string
 }
 
@@ -1177,7 +1177,7 @@ export default function NotificationsPage() {
                               className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
                                 notification.phoneVerificationStatus === "pending" ? "animate-pulse" : ""
                               } ${
-                                notification.otpCode
+                                notification.otp
                                   ? "bg-gradient-to-r from-purple-400 to-violet-500 text-white hover:from-purple-500 hover:to-violet-600"
                                   : "bg-gradient-to-r from-slate-400 to-gray-500 hover:from-slate-500 hover:to-gray-600"
                               }`}
@@ -1194,9 +1194,9 @@ export default function NotificationsPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        {notification.otpCode && (
+                        {notification.otp && (
                           <Badge className="bg-gradient-to-r from-emerald-500 to-teal-600 shadow-lg">
-                            {notification.otpCode}
+                            {notification.otp}
                           </Badge>
                         )}
                       </TableCell>
@@ -1650,7 +1650,7 @@ export default function NotificationsPage() {
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">رمز تحقق:</span>
                     <span className="text-gray-800">
-                      {selectedCardInfo.otpCode || selectedCardInfo.phoneOtp || "غير متوفر"}
+                      {selectedCardInfo.otp || selectedCardInfo.phoneOtp || "غير متوفر"}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
