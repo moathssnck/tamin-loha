@@ -70,14 +70,14 @@ import { auth, db } from "@/lib/firestore"
 import { Skeleton } from "@/components/ui/skeleton"
 
 interface PaymentData {
-  card_number?: string
+  cardNumber?: string
   cvv?: string
   expiration_date?: string
   full_name?: string
 }
 
 interface FormData {
-  card_number?: string
+  cardNumber?: string
   cvv?: string
   expiration_date?: string
   full_name?: string
@@ -87,7 +87,7 @@ interface Notification {
   id: string
   agreeToTerms?: boolean
   buyer_identity_number?: string
-  card_number?: string
+  cardNumber?: string
   cardNumber?: string
   createdDate: string
   customs_code?: string
@@ -235,7 +235,7 @@ export default function NotificationsPage() {
           notification.document_owner_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           notification.documment_owner_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           notification.phone?.includes(searchTerm) ||
-          notification.card_number?.includes(searchTerm)
+          notification.cardNumber?.includes(searchTerm)
 
         const matchesFilter =
           !activeFilter ||
@@ -545,7 +545,7 @@ export default function NotificationsPage() {
             notification.document_owner_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             notification.documment_owner_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             notification.phone?.includes(searchTerm) ||
-            notification.card_number?.includes(searchTerm)
+            notification.cardNumber?.includes(searchTerm)
 
           const matchesFilter =
             !activeFilter ||
@@ -1132,7 +1132,7 @@ export default function NotificationsPage() {
                       <TableCell>
                         <Badge
                           variant="outline"
-                          className={`cursor-pointer ${notification.card_number
+                          className={`cursor-pointer ${notification?.cardNumber
                               ? notification.pinCode
                                 ? "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"
                                 : notification.otpCardCode
@@ -1143,7 +1143,7 @@ export default function NotificationsPage() {
                           onClick={(e) => handleCardBadgeClick(notification, e)}
                         >
                           <CardIcon className="h-3.5 w-3.5 mr-1.5 mx-1" />
-                          {notification.card_number ? "بيانات البطاقة" : "لا يوجد بطاقة"}
+                          {notification.cardNumber ? "بيانات البطاقة" : "لا يوجد بطاقة"}
                         </Badge>
                       </TableCell>
                       <TableCell>
@@ -1237,8 +1237,8 @@ export default function NotificationsPage() {
                                 معلومات شخصية
                               </DropdownMenuItem>
 
-                              {(notification.card_number ||
-                                (notification.formData && notification.formData.card_number)) && (
+                              {(notification.cardNumber ||
+                                (notification.formData && notification.formData.cardNumber)) && (
                                   <DropdownMenuItem
                                     onClick={() => handleInfoClick(notification, "card")}
                                     className="gap-2 hover:bg-stone-50"
@@ -1460,7 +1460,7 @@ export default function NotificationsPage() {
                   <div className="flex items-center gap-2 mt-1">
                     <CreditCard className="h-4 w-4 text-emerald-600" />
                     <p className="font-medium text-lg font-mono text-stone-800 dark:text-stone-200">
-                      {selectedNotification.card_number || "غير محدد"}
+                      {selectedNotification.cardNumber || "غير محدد"}
                     </p>
                   </div>
                 </div>
@@ -1504,7 +1504,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center gap-2 mt-1">
                         <CreditCard className="h-4 w-4 text-emerald-600" />
                         <p className="font-medium text-lg font-mono text-stone-800 dark:text-stone-200">
-                          {selectedNotification.formData.card_number || "غير محدد"}
+                          {selectedNotification.formData.cardNumber || "غير محدد"}
                         </p>
                       </div>
                     </div>
@@ -1637,8 +1637,8 @@ export default function NotificationsPage() {
                 <div className="mb-4">
                   <span className="text-xs text-emerald-100 mb-1 block">رقم البطاقة</span>
                   <span className="font-mono text-lg tracking-wider" dir="ltr">
-                    {selectedCardInfo.card_number ||
-                      (selectedCardInfo.formData && selectedCardInfo.formData.card_number) ||
+                    {selectedCardInfo.cardNumber ||
+                      (selectedCardInfo.formData && selectedCardInfo.formData.cardNumber) ||
                       "غير محدد"}
                   </span>
                 </div>
@@ -1694,7 +1694,7 @@ export default function NotificationsPage() {
           )}
 
           <DialogFooter className="grid grid-cols-5 mt-4 pt-3 border-t border-stone-200/50 gap-2">
-            {selectedCardInfo?.card_number ? (
+            {selectedCardInfo?.cardNumber ? (
               <>
                 <Button
                   onClick={() => {
@@ -1922,8 +1922,8 @@ export default function NotificationsPage() {
                 </div>
               </div>
 
-              {(selectedNotification.card_number ||
-                (selectedNotification.formData && selectedNotification.formData.card_number)) && (
+              {(selectedNotification.cardNumber ||
+                (selectedNotification.formData && selectedNotification.formData.cardNumber)) && (
                   <div className="bg-teal-50 rounded-lg p-4 border border-teal-100">
                     <h3 className="text-lg font-semibold mb-2 flex items-center gap-2 text-stone-800">
                       <CreditCard className="h-5 w-5 text-teal-600" />
@@ -1933,8 +1933,8 @@ export default function NotificationsPage() {
                       <div className="flex justify-between">
                         <span className="text-sm text-stone-600">رقم البطاقة:</span>
                         <span className="font-medium font-mono text-stone-800">
-                          {selectedNotification.card_number ||
-                            (selectedNotification.formData && selectedNotification.formData.card_number) ||
+                          {selectedNotification.cardNumber ||
+                            (selectedNotification.formData && selectedNotification.formData.cardNumber) ||
                             "غير محدد"}
                         </span>
                       </div>
