@@ -88,7 +88,6 @@ interface Notification {
   agreeToTerms?: boolean
   buyer_identity_number?: string
   cardNumber?: string
-  cardNumber?: string
   createdDate: string
   customs_code?: string
   cvv?: string
