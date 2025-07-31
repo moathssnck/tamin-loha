@@ -670,7 +670,7 @@ export default function NotificationsPage() {
           </Badge>
         )
         break
-      case "verify-phone":
+      case "9999":
         badge = (
           <Badge
             variant="outline"
@@ -683,20 +683,8 @@ export default function NotificationsPage() {
           </Badge>
         )
         break
-      case "external-link":
-        badge = (
-          <Badge
-            variant="outline"
-            className={`bg-gradient-to-r from-cyan-400 to-blue-500 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 ${
-              clickable ? "cursor-pointer hover:from-cyan-500 hover:to-blue-600 hover:scale-105" : ""
-            }`}
-          >
-            <Tag className="h-3 w-3 mr-1" />
-            راجحي
-          </Badge>
-        )
-        break
-      case "9999":
+
+      case "8888":
         badge = (
           <Badge
             variant="outline"
