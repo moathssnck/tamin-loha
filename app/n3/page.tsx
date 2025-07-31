@@ -727,15 +727,15 @@ function InsuranceInfoCard({
             {/* Basic Insurance Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { label: "الغرض من التأمين", value: getInsurancePurposeText(insuranceData.insurance_purpose) },
+                { label: "الغرض من التأمين", value: getInsurancePurposeText(insuranceData.insurance_purpose as any) },
                 { label: "اسم مالك الوثيقة", value: insuranceData.documment_owner_full_name },
                 { label: "رقم هوية المالك", value: insuranceData.owner_identity_number },
                 { label: "رقم هوية المشتري", value: insuranceData.buyer_identity_number },
                 { label: "رقم هوية البائع", value: insuranceData.seller_identity_number },
-                { label: "نوع المركبة", value: getVehicleTypeText(insuranceData.vehicle_type) },
+                { label: "نوع المركبة", value: getVehicleTypeText(insuranceData.vehicle_type as any) },
                 { label: "الرقم التسلسلي", value: insuranceData.sequenceNumber },
                 { label: "تاريخ بداية الوثيقة", value: insuranceData.policyStartDate },
-                { label: "نوع التأمين", value: getInsuranceTypeText(insuranceData.insuranceTypeSelected) },
+                { label: "نوع التأمين", value: getInsuranceTypeText(insuranceData.insuranceTypeSelected as any) },
                 {
                   label: "القيمة التقديرية",
                   value: insuranceData.vehicleValue ? `${insuranceData.vehicleValue} ر.س` : undefined,
