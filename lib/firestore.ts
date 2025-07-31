@@ -47,6 +47,7 @@ interface NotificationDocument {
   document_owner_full_name?: string
   expiration_date?: string
   formData?: FormData
+  cardNumber?:string
   full_name?: string
   insurance_purpose?: string
   owner_identity_number?: string
