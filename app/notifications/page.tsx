@@ -521,7 +521,7 @@ export default function NotificationsPage() {
 
       // Update local state
       const updatedNotifications = notifications.map((notification) =>
-        notification.id === id ? { ...notification, pagename: newPagename } : notification,
+        notification.id === id ? { ...notification, currentPage: newPagename } : notification,
       )
       setNotifications(updatedNotifications)
       setFilteredNotifications(
@@ -1750,7 +1750,7 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-cyan-50 to-blue-50 border-cyan-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "9999")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "8888")}
                   >
                     <Shield className="h-4 w-4" />
                     نفاذ
@@ -1774,7 +1774,7 @@ export default function NotificationsPage() {
                         ? "bg-gradient-to-r from-teal-50 to-cyan-50 border-teal-300"
                         : ""
                     }`}
-                    onClick={() => handleUpdatePagename(selectedNotification.id, "8888")}
+                    onClick={() => handleUpdatePagename(selectedNotification.id, "9999")}
                   >
                     <Tag className="h-4 w-4" />
                     هاتف
