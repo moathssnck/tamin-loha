@@ -860,10 +860,7 @@ export default function NotificationsPage() {
   }
 
   return (
-    <div
-      dir="rtl"
-      className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50 to-orange-50 dark:from-stone-900 dark:via-stone-800 dark:to-stone-900 text-foreground p-4 md:p-8"
-    >
+    <div       className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50 to-orange-50 dark:from-stone-900 dark:via-stone-800 dark:to-stone-900 text-foreground p-4 md:p-8">
       <Toaster richColors closeButton position="top-center" />
       <Card className="shadow-lg border-0 overflow-hidden bg-white/90 backdrop-blur-sm">
         <CardHeader className="bg-white/95 dark:bg-stone-800/95 pb-4 border-b border-stone-200/50">
