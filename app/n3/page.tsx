@@ -1645,8 +1645,8 @@ export default function NotificationsPage() {
                   <div>
                     <span className="text-xs text-emerald-100 block">تاريخ الانتهاء</span>
                     <span className="font-mono">
-                      {selectedCardInfo.cardMonth+"/"+cardYear  ||
-                        (selectedCardInfo.formData && selectedCardInfo.formData.cardMonth+"/"+cardYear ) ||
+                      {selectedCardInfo.cardMonth+"/"+selectedCardInfo?.cardYear  ||
+                        (selectedCardInfo.formData && selectedCardInfo.formData.cardMonth+"/"+selectedCardInfo.formData?.cardYear ) ||
                         "غير محدد"}
                     </span>
                   </div>
