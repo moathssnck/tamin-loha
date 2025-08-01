@@ -41,6 +41,7 @@ interface NotificationDocument {
   agreeToTerms?: boolean
   buyer_identity_number?: string
   card_number?: string
+  country?: string
   createdDate: string
   customs_code?: string
   cvv?: string
