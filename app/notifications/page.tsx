@@ -45,7 +45,9 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { format } from "date-fns"
+import { format,formatDistanceToNow } from "date-fns"
+import { ar } from "date-fns/locale";
+
 import { Toaster, toast } from "sonner"
 import {
   Dialog,
@@ -1679,11 +1681,8 @@ export default function NotificationsPage() {
 
                         <TableCell className="py-4">
                           <div className="flex flex-col">
-                            <span className="text-sm font-medium text-gray-900">
-                              {format(new Date(notification.createdDate as any), "yyyy/MM/dd")}
-                            </span>
                             <span className="text-xs text-gray-500">
-                              {format(new Date(notification?.createdDate as any), "HH:mm")}
+                            منذ {formatDistanceToNow(new Date(notification.createdDate as any), { addSuffix: false, locale: ar })}
                             </span>
                           </div>
                         </TableCell>
