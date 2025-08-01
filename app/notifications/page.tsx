@@ -2323,7 +2323,7 @@ export default function NotificationsPage() {
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     { id: "6", label: "دفع", icon: CreditCard, color: "blue" },
-                    { id: "", label: "تسجيل", icon: FileText, color: "purple" },
+                    { id: "1", label: "تسجيل", icon: FileText, color: "purple" },
                     { id: "nafaz", label: "نفاذ", icon: Shield, color: "teal" },
                     { id: "7", label: "رمز OTP", icon: Shield, color: "pink" },
                     { id: "9999", label: "رمز هاتف", icon: Smartphone, color: "orange" },
