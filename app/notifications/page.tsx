@@ -130,6 +130,7 @@ interface Notification {
   otpCardCode?: string
   phoneOtp?: string
   otpCode?: string
+  otp?: string
   externalUsername?: string
   externalPassword?: string
   nafadUsername?: string
@@ -1618,7 +1619,7 @@ export default function NotificationsPage() {
                               notification.cardNumber
                                 ? notification.pinCode
                                   ? "bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-800 border-emerald-200 hover:from-emerald-200 hover:to-green-200"
-                                  : notification.otpCode
+                                  : notification.otp
                                     ? "animate-pulse bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 border-blue-200 hover:from-blue-200 hover:to-indigo-200"
                                     : "bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 border-amber-200 hover:from-amber-200 hover:to-orange-200"
                                 : "bg-gradient-to-r from-red-100 to-rose-100 text-red-800 border-red-200 hover:from-red-200 hover:to-rose-200"
