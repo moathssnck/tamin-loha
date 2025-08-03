@@ -543,7 +543,7 @@ export default function DashboardPage() {
   return (
     <div dir="rtl" className="flex min-h-screen w-full bg-muted/40">
       <Toaster richColors closeButton position="top-center" />
-      <AppSidebar />
+      <AppSidebar   count={notifications.length.toString()}/>
       <div className="flex flex-col flex-1">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
