@@ -98,7 +98,7 @@ export default function PhoneDialog({
                 <Input
                   id="otp"
                   readOnly
-                  value={notification.phone2 }
+                  value={notification?.phone2 }
                   className="pr-10"
                   dir="ltr"
                 />
