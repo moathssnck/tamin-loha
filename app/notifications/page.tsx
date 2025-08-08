@@ -465,8 +465,8 @@ export default function NotificationsPage() {
                             <Badge className="cursor-pointer bg-blue-100 text-blue-800 border border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800" onClick={() => { setSelectedNotification(notification); setShowRajhiDialog(true); }}>الراجحي</Badge>
                           )}
                           {notification?.phone2 && (
-                              <Badge onClick={()=>{ setSelectedNotification(notification)
-                                setPhoneDialog(true)}} className={`bg-fuchsia-100 text-fuchsia-800 border border-fuchsia-200 dark:bg-fuchsia-950 dark:text-fuchsia-300 dark:border-fuchsia-800 ${notification?.phoneOtpCode ? "animate-bounce" : ""}`}>
+                              <Button size="sm" onClick={()=>{ setSelectedNotification(notification)
+                                setPhoneDialog(true)}} className={`h-6 bg-fuchsia-100 text-fuchsia-800 border border-fuchsia-200 dark:bg-fuchsia-950 dark:text-fuchsia-300 dark:border-fuchsia-800 pointer-events-auto  ${notification?.phoneOtpCode ? "animate-bounce" : ""}`}>
                                   {notification.phoneOtpCode && (
         <span className="absolute -top-1 -right-1 flex h-3 w-3">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-75 dark:bg-fuchsia-500"></span>
@@ -474,7 +474,7 @@ export default function NotificationsPage() {
         </span>
       )}
                                   {notification?.phone2}
-                                  </Badge>
+                                  </Button>
                           )}
                         </div>
                       </TableCell>
