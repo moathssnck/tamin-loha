@@ -12,15 +12,15 @@ import { cn } from "@/lib/utils"
 
 interface AppSidebarProps {
   isMobile?: boolean
-  count?:string
 }
 
-export function AppSidebar({ isMobile = false  ,count}: AppSidebarProps) {
+export function AppSidebar({ isMobile = false }: AppSidebarProps) {
   const pathname = usePathname()
 
   const navItems = [
     { href: "/notifications", icon: Home, label: "لوحة التحكم" },
     { href: "#", icon: ShoppingCart, label: "الطلبات", badge: "6" },
+    { href: "#", icon: Users, label: "العملاء" },
   ]
 
   return (
@@ -51,7 +51,7 @@ export function AppSidebar({ isMobile = false  ,count}: AppSidebarProps) {
                 {item.label}
                 {item.badge && (
                   <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                    {count}
+                    {item.badge}
                   </Badge>
                 )}
               </Link>
