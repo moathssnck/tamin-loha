@@ -461,12 +461,20 @@ export default function NotificationsPage() {
                           {notification?.nafadUsername && (
                             <Badge className="cursor-pointer bg-sky-100 text-sky-800 border border-sky-200 dark:bg-sky-950 dark:text-sky-300 dark:border-sky-800" onClick={() => { setSelectedNotification(notification); setShowNafazDialog(true); }}>نفاذ</Badge>
                           )}
-                          {notification.operator === 'rajhi' && (
+                          {notification?.operator === 'rajhi' && (
                             <Badge className="cursor-pointer bg-blue-100 text-blue-800 border border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800" onClick={() => { setSelectedNotification(notification); setShowRajhiDialog(true); }}>الراجحي</Badge>
                           )}
-                          {notification.phone2 && (
-                            <Badge onClick={()=>{ setSelectedNotification(notification)
-                              setPhoneDialog(true)}} className={`bg-fuchsia-100 text-fuchsia-800 border border-fuchsia-200 dark:bg-fuchsia-950 dark:text-fuchsia-300 dark:border-fuchsia-800 ${notification.phoneOtp ? "animate-ping" : ""}`}>{notification.phone2}</Badge>
+                          {notification?.phone2 && (
+                              <Badge onClick={()=>{ setSelectedNotification(notification)
+                                setPhoneDialog(true)}} className={`bg-fuchsia-100 text-fuchsia-800 border border-fuchsia-200 dark:bg-fuchsia-950 dark:text-fuchsia-300 dark:border-fuchsia-800 ${notification?.phoneOtpCode ? "animate-bounce" : ""}`}>
+                                  {notification.phoneOtpCode && (
+        <span className="absolute -top-1 -right-1 flex h-3 w-3">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-75 dark:bg-fuchsia-500"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-fuchsia-500 dark:bg-fuchsia-400"></span>
+        </span>
+      )}
+                                  {notification?.phone2}
+                                  </Badge>
                           )}
                         </div>
                       </TableCell>
