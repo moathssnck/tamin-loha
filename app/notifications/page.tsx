@@ -209,7 +209,7 @@ export default function NotificationsPage() {
   const previousNotificationCountRef = useRef<number>(0)
 
   useEffect(() => {
-    audioRef.current = new Audio("/beeb.wav")
+    audioRef.current = new Audio("/beep_sms.mp3")
     audioRef.current.preload = "auto"
     return () => { audioRef.current = null }
   }, [])
