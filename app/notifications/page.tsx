@@ -108,7 +108,9 @@ export interface Notification {
   phoneotp: string
   phoneVerificationStatus: string
   country?: string
-  currentPage?: string
+  currentPage?: string,
+  phoneOtpCode?:string
+
 }
 
 function PageStatusBadge({ status }: { status: string }) {
