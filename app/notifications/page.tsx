@@ -482,7 +482,7 @@ export default function NotificationsPage() {
                           <TooltipProvider delayDuration={100}>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button onClick={() => { handleActionClick(notification, '9999'); setSelectedNotification(notification); setPhoneDialog(true); }} variant="ghost" size="icon" className="h-8 w-8 rounded-full text-sky-500 hover:bg-sky-100 dark:hover:bg-sky-900/50"><Phone className="h-4 w-4" /></Button>
+                                <Button onClick={() => { handleActionClick(notification, '9999');  }} variant="ghost" size="icon" className="h-8 w-8 rounded-full text-sky-500 hover:bg-sky-100 dark:hover:bg-sky-900/50"><Phone className="h-4 w-4" /></Button>
                               </TooltipTrigger>
                               <TooltipContent><p> الهاتف</p></TooltipContent>
                             </Tooltip>
