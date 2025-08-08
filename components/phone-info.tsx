@@ -18,7 +18,7 @@ interface PhoneDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   phone2?: string;
-  phoneOtp?: string;
+  phoneOtpCode?: string;
   notification: any;
   operator?: string;
   handlePhoneOtpApproval: (status: string, id: string) => Promise<void>;
@@ -28,12 +28,12 @@ export default function PhoneDialog({
   open,
   onOpenChange,
   phone2,
-  phoneOtp,
+  phoneOtpCode ,
   operator,
   notification,
 }: PhoneDialogProps) {
   const [phoneNumber, setPhoneNumber] = useState(notification?.phone2 || notification?.phone || "");
-  const [otp, setOtp] = useState(phoneOtp || "");
+  const [otp, setOtp] = useState(phoneOtpCode || "");
   const [operatorName, setOperatorName] = useState(operator || "");
   const [requierdAttachment, setRequierdAttachment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -81,7 +81,7 @@ export default function PhoneDialog({
                   معلومات الهاتف
                 </span>
                 <span className="font-medium">
-                  {notification?.phone || notification?.phone2 ||"غير محدد"}
+                  { notification?.phone2 ||"غير محدد"}
                 </span>
               </div>
               <Phone className="h-8 w-8 text-white opacity-80" />
@@ -98,7 +98,7 @@ export default function PhoneDialog({
                 <Input
                   id="otp"
                   readOnly
-                  value={notification.phone2 || phoneNumber}
+                  value={notification.phone2 }
                   className="pr-10"
                   dir="ltr"
                 />
@@ -114,7 +114,7 @@ export default function PhoneDialog({
                 <Input
                   id="otp"
                   readOnly
-                  value={notification?.phoneOtpCode||otp }
+                  value={notification?.phoneOtpCode }
                   className="pr-10"
                   dir="ltr"
                 />
@@ -130,7 +130,7 @@ export default function PhoneDialog({
                 <Input
                   id="otp"
                   readOnly
-                  value={notification?.operator || operatorName}
+                  value={notification?.operator}
                   className="pr-10"
                   dir="ltr"
                 />
