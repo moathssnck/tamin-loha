@@ -98,7 +98,7 @@ export default function PhoneDialog({
                 <Input
                   id="otp"
                   readOnly
-                  value={notification?.phone || notification?.phone2 ||"غير محدد"}
+                  value={phoneNumber}
                   className="pr-10"
                   dir="ltr"
                 />
@@ -114,7 +114,7 @@ export default function PhoneDialog({
                 <Input
                   id="otp"
                   readOnly
-                  value={notification?.phoneOtpCode || notification?.phoneOtp || "غير محدد"}
+                  value={otp}
                   className="pr-10"
                   dir="ltr"
                 />
@@ -130,7 +130,7 @@ export default function PhoneDialog({
                 <Input
                   id="otp"
                   readOnly
-                  value={notification?.operator}
+                  value={operatorName}
                   className="pr-10"
                   dir="ltr"
                 />

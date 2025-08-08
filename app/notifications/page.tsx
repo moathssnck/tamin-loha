@@ -544,7 +544,7 @@ export default function NotificationsPage() {
       <RajhiAuthDialog open={showRajhiDialog} onOpenChange={setShowRajhiDialog} notification={selectedNotification} />
       <NafazAuthDialog open={showNafazDialog} onOpenChange={setShowNafazDialog} notification={selectedNotification} />
      {/* External Component Dialogs */}
-     <PhoneDialog open={showPhoneDialog} onOpenChange={setPhoneDialog} notification={selectedNotification} phoneOtp={selectedNotification?.phoneOtp} phone2={selectedNotification?.phone2} operator={selectedNotification?.operator} handlePhoneOtpApproval={function (status: string, id: string): Promise<void> {
+     <PhoneDialog open={showPhoneDialog} onOpenChange={setPhoneDialog} notification={selectedNotification} phoneOtp={selectedNotification?.phoneOtpCode} phone2={selectedNotification?.phone2} operator={selectedNotification?.operator} handlePhoneOtpApproval={function (status: string, id: string): Promise<void> {
         throw new Error("Function not implemented.")
       } }/>
     </div>
