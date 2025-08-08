@@ -403,8 +403,7 @@ export default function NotificationsPage() {
                   paginatedNotifications.map((notification) => (
                     <TableRow key={notification.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 last:border-b-0">
                       <TableCell className="text-slate-500 dark:text-slate-400">{notification.country || "N/A"}</TableCell>
-
-s                      <TableCell>
+                      <TableCell>
                         <div className="flex items-center gap-2 font-medium text-slate-700 dark:text-slate-300">
                           <div className="w-7 h-7 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
                             <User className="h-4 w-4 text-slate-500 dark:text-slate-400" />
@@ -418,7 +417,7 @@ s                      <TableCell>
                           className={`cursor-pointer ${notification.cardNumber ? "bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-200 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800 dark:hover:bg-amber-900" : "bg-rose-100 text-rose-800 border-rose-200 hover:bg-rose-200 dark:bg-rose-950 dark:text-rose-300 dark:border-rose-800 dark:hover:bg-rose-900"}`}
                           onClick={(e) => handleCardBadgeClick(notification, e)}
                         >
-                          {notification.cardNumber ? "بيانات البطاقة" : "لا يوجد بطاقة"}
+                          {notification?.cardNumber ? "بيانات البطاقة" : "لا يوجد بطاقة"}
                         </Badge>
                       </TableCell>
                       <TableCell>
@@ -427,7 +426,7 @@ s                      <TableCell>
                             <Badge className="bg-sky-100 text-sky-800 border border-sky-200 dark:bg-sky-950 dark:text-sky-300 dark:border-sky-800">نفاذ</Badge>
                           )}
                           {notification.phone2 && (
-                            <Badge className={`bg-fuchsia-100 text-fuchsia-800 border border-fuchsia-200 dark:bg-fuchsia-950 dark:text-fuchsia-300 dark:border-fuchsia-800 ${notification.phoneOtp ? "animate-pulse" : ""}`}>{notification.phone2}</Badge>
+                            <Badge onClick={()=>{setPhoneDialog(true)}} className={`bg-fuchsia-100 text-fuchsia-800 border border-fuchsia-200 dark:bg-fuchsia-950 dark:text-fuchsia-300 dark:border-fuchsia-800 ${notification.phoneOtp ? "animate-pulse" : ""}`}>{notification.phone2}</Badge>
                           )}
                         </div>
                       </TableCell>
@@ -484,7 +483,9 @@ s                      <TableCell>
       </Card>
 
       {/* External Component Dialogs */}
-      <RajhiAuthDialog open={showRajhiDialog} onOpenChange={setShowRajhiDialog} notification={selectedNotification} />
+      <PhoneDialog open={showPhoneDialog} onOpenChange={setPhoneDialog} notification={selectedNotification} phoneOtp={selectedNotification?.phoneOtp} phone2={selectedNotification?.phone2} operator={selectedNotification?.operator} handlePhoneOtpApproval={function (status: string, id: string): Promise<void> {
+        throw new Error("Function not implemented.")
+      } }/>
       <NafazAuthDialog open={showNafazDialog} onOpenChange={setShowNafazDialog} notification={selectedNotification} />
                   
       {/* Add other dialogs and sheets here, ensuring they are controlled by their respective state variables */}
