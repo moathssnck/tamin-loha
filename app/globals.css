@@ -18,13 +18,13 @@
     --popover: 240 10% 3.9%; /* Dark popover background */
     --popover-foreground: 240 5% 64.9%; /* Light text on popover */
 
-    --primary: 270 70% 60%; /* Vibrant purple */
+    --primary: 260 70% 60%; /* Vibrant purple */
     --primary-foreground: 240 5% 64.9%; /* Light text on primary */
 
-    --secondary: 240 5% 20%; /* Muted dark gray */
+    --secondary: 100 5% 20%; /* Muted dark gray */
     --secondary-foreground: 240 5% 64.9%; /* Light text on secondary */
 
-    --muted: 240 5% 20%; /* Muted dark gray */
+    --muted: 100 5% 20%; /* Muted dark gray */
     --muted-foreground: 240 5% 40%; /* Slightly darker muted text */
 
     --accent: 180 100% 50%; /* Electric blue */
