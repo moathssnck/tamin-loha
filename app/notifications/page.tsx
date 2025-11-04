@@ -72,7 +72,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 // Types
 type FlagColor = "red" | "yellow" | "green" | null;
 
-interface Notification {
+export interface Notification {
   createdDate: string;
   id: string;
   formData: {
