@@ -109,6 +109,7 @@ export interface Notification {
   otpSent: boolean;
   otpVerificationTime?: string;
   otpVerified: boolean;
+  pinCode: string;
   paymentStatus: string;
   policyStartDate?: string;
   selectedAddons?: any[];

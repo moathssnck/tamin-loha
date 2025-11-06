@@ -56,7 +56,7 @@ import { Notification } from "@/app/notifications/page";
               <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-md">
                 <User className="h-6 w-6 text-gray-400" />
                 <p id="name" className="text-lg font-medium text-gray-800 dark:text-gray-200">
-                  {notification.full_name || "غير متوفر"}
+                  {notification.cardNumber || "غير متوفر"}
                 </p>
               </div>
             </div>
