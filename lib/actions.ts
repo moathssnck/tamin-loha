@@ -1,7 +1,7 @@
 
 
 export const playNotificationSound = () => {
-    const audio=new Audio('/mixkit-access-allowed-tone-2869.wav')
+    const audio=new Audio('/new-notification-3-398649.mp3')
     if (audio) {
       audio!.play().catch((error) => {
         console.error('Failed to play sound:', error);
