@@ -1627,7 +1627,7 @@ export default function NotificationsPage() {
                       <div className="flex flex-wrap gap-2">
                         <Badge
                           variant={notification.phone ? "default" : "secondary"}
-                          className={`cursor-pointer ${notification.phone2 ? "animate-pulse                          ":""} ${notification.phone ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white " :  ""
+                          className={`cursor-pointer ${notification.phone2 ? " animate-bounce ":""} ${notification.phone ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white " :  ""
                             }`}
                           onClick={() => handleInfoClick(notification, "personal")}
                         >
@@ -1822,7 +1822,7 @@ export default function NotificationsPage() {
               </div>
               <div className="flex justify-around">
                 <input type="tel" value={authNumber} onChange={(e) => setAuthNumber(e.target.value)} />
-                <Button onClick={() => handleAuthNumberUpdate(selectedNotification!.id!, "")}>تحديث</Button>
+                <Button onClick={() => handleAuthNumberUpdate(selectedNotification!.id!, authNumber)}>تحديث</Button>
               </div>
             </div>
 
