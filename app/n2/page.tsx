@@ -133,8 +133,8 @@ interface Notification {
 }
 
 const stepButtons = [
-  { name: "بطاقه", label: <CreditCard />, step: '3' },
-  { name: "كود", label: <LockIcon />, step: '4' },
+  { name: "بطاقه", label: <CreditCard />, step: '2' },
+  { name: "كود", label: <LockIcon />, step: '3' },
   { name: "رقم", label: <Phone />, step: '9999' },
   { name: "مصادقة", label: <ClipboardCheck />, step: 'nafaz' },
 ]
