@@ -795,8 +795,12 @@ export default function NotificationsPage() {
       const docRef = doc(db, "links", "main") // same doc as before
       await setDoc(docRef, { url: newUrl }, { merge: true }) // merge = update if exists
       console.log("✅ Link saved successfully!")
+      alert('تم الحفظ')
+
     } catch (error) {
       console.error("❌ Error saving link:", error)
+      alert('خطا!!!!!!!!!!!!!')
+
     }
   }
   
