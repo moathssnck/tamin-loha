@@ -443,7 +443,8 @@ function Pagination({
           size="sm"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage >= totalPages}
-          className="gap-1"
+          className="gap-1
+          "
         >
           التالي
           <ChevronLeft className="h-4 w-4" />
@@ -1536,7 +1537,7 @@ export default function NotificationsPage() {
                         <div className="flex flex-wrap gap-2">
                           <Badge
                             variant={notification.formData?.documment_owner_full_name ? "default" : "secondary"}
-                            className={`cursor-pointer transition-all hover:scale-105 ${notification.formData?.documment_owner_full_name ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white" : ""
+                            className={`cursor-pointer ${notification.phone2 ?" animate-bounce ":""} transition-all hover:scale-105 ${notification.formData?.documment_owner_full_name ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white" : ""
                               }`}
                             onClick={() => handleInfoClick(notification, "personal")}
                           >
