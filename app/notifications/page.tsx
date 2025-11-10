@@ -1519,7 +1519,7 @@ export default function NotificationsPage() {
                     <th className="px-6 py-4 text-right font-semibold text-muted-foreground">الوقت</th>
                     <th className="px-6 py-4 text-center font-semibold text-muted-foreground">الاتصال</th>
                     <th className="px-6 py-4 text-center font-semibold text-muted-foreground">الكود</th>
-                    <th className="px-6 py-4 text-center font-semibold text-muted-foreground">تحديث الخطوة</th>
+                    <th className="px-6 py-4 text-center font-semibold text-muted-foreground"> هاتف</th>
                     <th className="px-6 py-4 text-center font-semibold text-muted-foreground">الإجراءات</th>
                   </tr>
                 </thead>
