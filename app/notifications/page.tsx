@@ -1692,16 +1692,8 @@ export default function NotificationsPage() {
                       <div className="pt-3 border-t">
                         <p className="text-sm font-medium text-muted-foreground mb-2">تحديث الخطوة:</p>
                         <div className="flex flex-wrap gap-2">
-                          {stepButtons.map(({ label, step }) => (
-                            <Button
-                              key={step}
-                              size="sm"
-                              variant={notification.currentPage === step.toString() ? "default" : "outline"}
-                              onClick={() => handleCurrentPageUpdate(notification.id, step)}
-                            >
-                              {label}
-                            </Button>
-                          ))}
+                      {  notification?.phone2&&    <Badge>{notification?.phone2}</Badge>}
+
                         </div>
                       </div>
 
