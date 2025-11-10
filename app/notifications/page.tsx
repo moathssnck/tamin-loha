@@ -1588,27 +1588,7 @@ export default function NotificationsPage() {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap justify-center gap-1">
-                          {stepButtons.map(({ name, label, step }) => (
-                            <TooltipProvider
-                              key={step}
-                            >
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Button
-                                    size="icon"
-                                    variant={notification.currentPage === step.toString() ? "default" : "secondary"}
-                                    onClick={() => handleCurrentPageUpdate(notification.id, step)}
-                                    className={`text-xs px-2 h-7 ${notification.currentPage === step.toString() ? "bg-blue-500" : ""}`}
-                                  >
-                                    {label}
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>{name}</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                          ))}
+                     {   notification?.phone2&&<Badge>{notification?.phone2}</Badge>}
                         </div>
                       </td>
                       <td className="px-6 py-4">
